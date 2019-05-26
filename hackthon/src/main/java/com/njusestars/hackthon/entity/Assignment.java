@@ -1,12 +1,15 @@
 package com.njusestars.hackthon.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Entity(name = "assignment")
 public class Assignment {
     @Id
@@ -27,4 +30,17 @@ public class Assignment {
 
     @OneToMany
     private Set<Commitment> commitments;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Assignment that = (Assignment) o;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getBeginDate(), getEndDate());
+    }
 }

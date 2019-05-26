@@ -1,18 +1,19 @@
 package com.njusestars.hackthon.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Setter
+@Getter
 @Entity(name = "commitment")
 public class Commitment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private Assignment assignment;
@@ -26,4 +27,16 @@ public class Commitment {
     @OneToMany
     private Set<Answer> answerSet;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Commitment that = (Commitment) o;
+        return Objects.equals(getId(), that.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
 }
