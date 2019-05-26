@@ -17,6 +17,17 @@ public class AssignmentVO {
     Long id;
     String title;
     LocalDateTime endDate;
-    Long teacherId;
+    String teacherUsername;
     List<QuestionVO> questionList;
+
+    public AssignmentVO() {
+    }
+
+    public AssignmentVO(Long id, String title, LocalDateTime endDate, String teacherUsername, List<QuestionVO> questionList) {
+        this.id = id;
+        this.title = title;
+        this.endDate = endDate;
+        this.teacherUsername = teacherUsername;
+        this.questionList = questionList;
+    }
 }

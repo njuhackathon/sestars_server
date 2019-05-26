@@ -58,7 +58,7 @@ public class TeacherController {
         List<ClassroomVO> classroomVOS = new ArrayList<>();
         for (Classroom classroom : classrooms) {
             ClassroomVO classroomVO = new ClassroomVO(classroom.getId(), classroom.getClassroomName());
-            for (Teacher teacher: classroom.getTeacherSet()) {
+            for (Teacher teacher : classroom.getTeacherSet()) {
                 if (teacherUsername.equals(teacher.getUsername())) {
                     classroomVO.setJoined(true);
                     break;
@@ -74,7 +74,7 @@ public class TeacherController {
         List<Classroom> classrooms = teacherBLService.getAllClassroom();
         List<ClassroomVO> classroomVOS = new ArrayList<>();
         for (Classroom classroom : classrooms) {
-            for (Teacher teacher: classroom.getTeacherSet()) {
+            for (Teacher teacher : classroom.getTeacherSet()) {
                 if (teacherUsername.equals(teacher.getUsername())) {
                     ClassroomVO classroomVO = new ClassroomVO(classroom.getId(), classroom.getClassroomName());
                     classroomVO.setJoined(true);
@@ -94,7 +94,7 @@ public class TeacherController {
         assignment.setTeacher(teacher);
         assignment.setEndDate(createAssigmentVO.getEndTime());
         Set<Question> questionSet = new HashSet<>();
-        for (QuestionVO questionVO: createAssigmentVO.getQuestionList()) {
+        for (QuestionVO questionVO : createAssigmentVO.getQuestionList()) {
             questionSet.add(new Question(questionVO.getTitle(), questionVO.getImageUrl(), assignment));
         }
         assignment.setQuestionSet(questionSet);
@@ -105,4 +105,5 @@ public class TeacherController {
             return new ResultMessage(null, true, null);
         }
     }
+
 }
