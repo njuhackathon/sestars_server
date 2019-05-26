@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -18,8 +19,22 @@ public class Classroom {
     private String classroomName;
 
     @ManyToMany
-    private Set<Teacher> teachers;
+    private Set<Teacher> teacherSet;
 
     @OneToMany
-    private Set<Student> students;
+    private Set<Student> studentSet;
+
+
+
+    public void addTeacher(Teacher teacher){
+        if (teacher == null) {
+            System.err.println("addTeacher() 输入的teacher为null");
+            return;
+        }
+        if (teacherSet == null) {
+            teacherSet = new HashSet<>();
+        }
+        teacherSet.add(teacher);
+    }
+
 }

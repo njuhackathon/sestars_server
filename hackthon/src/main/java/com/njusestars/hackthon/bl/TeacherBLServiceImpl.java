@@ -1,5 +1,6 @@
 package com.njusestars.hackthon.bl;
 
+import com.njusestars.hackthon.dao.ClassroomDao;
 import com.njusestars.hackthon.dao.TeacherDao;
 import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Classroom;
@@ -19,6 +20,9 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     @Autowired
     private TeacherDao teacherDao;
 
+    @Autowired
+    private ClassroomDao classroomDao;
+
 
     @Override
     public Teacher getTeacherByUsername(String username) {
@@ -27,12 +31,19 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public Classroom createClassroom(Classroom classroom) {
-        return null;
+        Classroom newClassroom = classroomDao.save(classroom);
+        return newClassroom;
     }
 
     @Override
     public Teacher joinClassroom(Classroom classroom, Teacher teacher) {
-        return null;
+        classroom.addTeacher(teacher);
+        classroomDao.save(classroom);
+
+        teacher.addClassroom(classroom);
+        teacherDao.save(teacher);
+
+        return teacher;
     }
 
     @Override
