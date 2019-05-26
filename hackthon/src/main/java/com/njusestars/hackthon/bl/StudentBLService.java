@@ -2,6 +2,7 @@ package com.njusestars.hackthon.bl;
 
 import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Commitment;
+import com.njusestars.hackthon.entity.Question;
 import com.njusestars.hackthon.entity.Student;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +43,11 @@ public interface StudentBLService {
     Student getStudentByUsername(String username);
 
 
+    /**
+     * 根据id找到question
+     * @param id
+     * @return
+     */
+    Question getQuestionById(Long id);
 
 }

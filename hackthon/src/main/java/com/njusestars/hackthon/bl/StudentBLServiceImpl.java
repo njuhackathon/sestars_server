@@ -1,11 +1,9 @@
 package com.njusestars.hackthon.bl;
 
 import com.njusestars.hackthon.dao.CommitmentDao;
+import com.njusestars.hackthon.dao.QuestionDao;
 import com.njusestars.hackthon.dao.StudentDao;
-import com.njusestars.hackthon.entity.Assignment;
-import com.njusestars.hackthon.entity.Classroom;
-import com.njusestars.hackthon.entity.Commitment;
-import com.njusestars.hackthon.entity.Student;
+import com.njusestars.hackthon.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +23,9 @@ public class StudentBLServiceImpl implements StudentBLService {
 
     @Autowired
     private CommitmentDao commitmentDao;
+
+    @Autowired
+    private QuestionDao questionDao;
 
 
     @Override
@@ -57,6 +58,15 @@ public class StudentBLServiceImpl implements StudentBLService {
             System.err.println("getStudentById() 这里的username不存在" + username);
         }
         return student;
+    }
+
+    @Override
+    public Question getQuestionById(Long id) {
+        Question question = this.questionDao.findById(id).orElse(null);
+        if (question == null) {
+            System.err.println("question id is null");
+        }
+        return question;
     }
 
 

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -20,8 +21,12 @@ import java.util.UUID;
 @RequestMapping("/file")
 public class FileController {
 
-    private String dir = getJarDir() + "/img/";
+    private String dir;
 
+    @PostConstruct
+    public void init(){
+        dir = getJarDir() + "/img/";
+    }
 
     private String getJarDir(){
         ApplicationHome h = new ApplicationHome(getClass());
