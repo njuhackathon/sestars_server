@@ -15,7 +15,7 @@ public class Commitment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Assignment assignment;
     private Double score;
     private String comment;
