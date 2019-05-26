@@ -1,5 +1,6 @@
 package com.njusestars.hackthon.bl;
 
+import com.njusestars.hackthon.dao.ClassroomDao;
 import com.njusestars.hackthon.dao.CommitmentDao;
 import com.njusestars.hackthon.dao.QuestionDao;
 import com.njusestars.hackthon.dao.StudentDao;
@@ -26,6 +27,9 @@ public class StudentBLServiceImpl implements StudentBLService {
 
     @Autowired
     private QuestionDao questionDao;
+
+    @Autowired
+    private ClassroomDao classroomDao;
 
 
     @Override
@@ -67,6 +71,20 @@ public class StudentBLServiceImpl implements StudentBLService {
             System.err.println("question id is null");
         }
         return question;
+    }
+
+    @Override
+    public Student joinClassroom(Long classroomID, String studentName) {
+        if (classroomID == null || studentName==null) {
+            System.err.println("param is null !!!");
+            return null;
+        }
+        Student student = studentDao.findById(studentName).orElse(null);
+        Classroom classroom = classroomDao.findById(classroomID).orElse(null);
+        student.setClassroom(classroom);
+        student = studentDao.save(student);
+
+        return student;
     }
 
 

@@ -50,4 +50,14 @@ public interface StudentBLService {
      */
     Question getQuestionById(Long id);
 
+
+    /**
+     * 加入班级
+     * @param classroomID
+     * @param studentName
+     * @return
+     */
+    Student joinClassroom(Long classroomID, String studentName);
+
+
 }
