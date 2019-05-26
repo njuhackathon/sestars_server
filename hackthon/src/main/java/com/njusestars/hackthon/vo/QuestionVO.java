@@ -1,5 +1,7 @@
 package com.njusestars.hackthon.vo;
 
+import lombok.Data;
+
 /**
  *
  * <br>
@@ -7,6 +9,7 @@ package com.njusestars.hackthon.vo;
  *
  * @author Xunner
  **/
+@Data
 public class QuestionVO {
     String title;
     String imageUrl;

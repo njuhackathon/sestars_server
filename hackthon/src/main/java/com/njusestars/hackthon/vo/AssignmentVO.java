@@ -1,5 +1,7 @@
 package com.njusestars.hackthon.vo;
 
+import lombok.Data;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
  *
  * @author Xunner
  **/
+@Data
 public class AssignmentVO {
     Long id;
     String title;

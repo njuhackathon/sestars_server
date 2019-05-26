@@ -19,6 +19,9 @@ public class Assignment {
     private Teacher teacher;
 
     @ManyToMany
+    private Set<Question> questionSet;
+
+    @ManyToMany
     private Set<Classroom> classroomSet;
 
     @OneToMany

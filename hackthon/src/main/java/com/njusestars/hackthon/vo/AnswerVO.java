@@ -1,5 +1,7 @@
 package com.njusestars.hackthon.vo;
 
+import lombok.Data;
+
 import java.util.List;
 
 /**
@@ -9,6 +11,7 @@ import java.util.List;
  *
  * @author Xunner
  **/
+@Data
 public class AnswerVO {
     Long questionId;
     String text;
