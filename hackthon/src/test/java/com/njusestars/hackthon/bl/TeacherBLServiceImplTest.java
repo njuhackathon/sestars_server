@@ -111,8 +111,6 @@ public class TeacherBLServiceImplTest {
         assignment = teacherBLService.publishAssignment(assignment);
         assertNotNull(assignment);
 
-
-
     }
 
     @Test
@@ -127,7 +125,6 @@ public class TeacherBLServiceImplTest {
         assignment.setTeacher(teacher);
         assignment =  teacherBLService.publishAssignment(assignment);
         assertNotNull(assignment);
-
 
 
         boolean ifDelete = teacherBLService.cancelAssignment(assignment);
