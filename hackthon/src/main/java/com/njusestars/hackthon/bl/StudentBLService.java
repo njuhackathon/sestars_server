@@ -34,6 +34,12 @@ public interface StudentBLService {
     List<Assignment> getToDoAssignmentList(@NotNull Student student);
 
 
+    /**
+     * 根据用户名获取student
+     * @param username
+     * @return
+     */
+    Student getStudentByUsername(String username);
 
 
 
