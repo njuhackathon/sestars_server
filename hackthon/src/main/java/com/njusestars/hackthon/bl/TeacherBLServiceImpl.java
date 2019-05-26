@@ -64,6 +64,11 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     }
 
     @Override
+    public Assignment updateAssignment(Assignment assignment) {
+        return null;
+    }
+
+    @Override
     public boolean cancelAssignment(Assignment toBeDelete) {
         this.assignmentDao.delete(toBeDelete);
         return true;
