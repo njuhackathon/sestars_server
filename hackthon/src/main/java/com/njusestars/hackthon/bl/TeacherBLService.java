@@ -24,6 +24,8 @@ public interface TeacherBLService {
     Teacher getTeacherByUsername(String username);
 
 
+    Teacher updateTeacher(Teacher teacher);
+
     /**
      * 创建新的班级
      * @param classroom ,要求具有classroomName
