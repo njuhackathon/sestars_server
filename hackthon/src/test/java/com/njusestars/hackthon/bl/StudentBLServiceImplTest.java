@@ -32,7 +32,7 @@ public class StudentBLServiceImplTest {
 
     @Test
     public void commitAssignment() {
-        
+
     }
 
     @Test

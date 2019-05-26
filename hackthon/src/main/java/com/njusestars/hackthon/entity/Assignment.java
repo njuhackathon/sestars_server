@@ -22,7 +22,7 @@ public class Assignment {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Teacher teacher;
 
-    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "assignment")
     private Set<Question> questionSet;
 
     @ManyToMany

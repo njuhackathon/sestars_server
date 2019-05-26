@@ -23,7 +23,7 @@ public class Question {
     private String title;
     private String imagePath;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Assignment assignment;
 
     public Question() {
