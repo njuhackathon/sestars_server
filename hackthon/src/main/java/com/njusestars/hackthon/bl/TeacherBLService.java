@@ -26,7 +26,7 @@ public interface TeacherBLService {
 
     /**
      * 创建新的班级
-     * @param classroom
+     * @param classroom ,要求具有classroomName
      * @return
      */
     Classroom createClassroom(Classroom classroom);
@@ -34,8 +34,8 @@ public interface TeacherBLService {
 
     /**
      *
-     * @param classroom
-     * @param teacher
+     * @param classroom ,完整的classroom
+     * @param teacher，完整的teacher
      * @return
      */
     Teacher joinClassroom(Classroom classroom,Teacher teacher);
@@ -43,10 +43,17 @@ public interface TeacherBLService {
 
     /**
      * 教师发布作业
-     * @param assignment 对参数有假设，待定
+     * @param assignment 对参数有假设，具有title
      * @return 真实形成的作业布置项
      */
     Assignment publishAssignment(Assignment assignment);
+
+    /**
+     * 更新assignment
+     * @param assignment
+     * @return
+     */
+    Assignment updateAssignment(Assignment assignment);
 
     /**
      * 取消作业布置
