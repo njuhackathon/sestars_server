@@ -1,7 +1,8 @@
 package com.njusestars.hackthon.entity;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -14,7 +15,8 @@ import java.util.Set;
  * @author 巽
  **/
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Setter
+@Getter
 @Entity(name = "student")
 public class Student extends User {
     @ManyToOne
