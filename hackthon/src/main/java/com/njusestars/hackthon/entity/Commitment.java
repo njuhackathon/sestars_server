@@ -16,7 +16,6 @@ public class Commitment {
     private Long id;
     @ManyToOne
     private Assignment assignment;
-    private String text;
     private Double score;
     private String comment;
     private LocalDateTime submitTime;

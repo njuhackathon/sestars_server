@@ -1,10 +1,21 @@
 package com.njusestars.hackthon.controller;
 
 import com.njusestars.hackthon.bl.StudentBLService;
+import com.njusestars.hackthon.bl.TeacherBLService;
+import com.njusestars.hackthon.entity.*;
 import com.njusestars.hackthon.util.ResultMessage;
+import com.njusestars.hackthon.vo.AnswerVO;
 import com.njusestars.hackthon.vo.AssignmentVO;
+import com.njusestars.hackthon.vo.CommitmentVO;
+import com.njusestars.hackthon.vo.QuestionVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * 学生相关Controller
@@ -16,25 +27,73 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin
 public class StudentController {
+    private static final String FAILED = "FAILED";
     private final StudentBLService studentBLService;
+    private final TeacherBLService teacherBLService;
 
     @Autowired
-    public StudentController(StudentBLService studentBLService) {
+    public StudentController(StudentBLService studentBLService, TeacherBLService teacherBLService) {
         this.studentBLService = studentBLService;
+        this.teacherBLService = teacherBLService;
     }
 
     @GetMapping(value = "/student/assignment/all")
-    public ResultMessage getAllAssignment(@RequestParam Long studentId) {
-        return null;
+    public ResultMessage getAllAssignment(@RequestParam String studentUsername) {
+        Student student = studentBLService.getStudentByUsername(studentUsername);
+        List<AssignmentVO> assignmentVOS = new ArrayList<>();
+        for (Assignment assignment : studentBLService.getToDoAssignmentList(student)) {
+            assignmentVOS.add(this.toAssignmentVO(assignment));
+        }
+        return new ResultMessage(null, true, assignmentVOS);
     }
 
     @GetMapping(value = "/student/assignment/")
     public ResultMessage getAssignment(@RequestParam Long assignmentId) {
-        return null;
+        AssignmentVO assignmentVO = this.toAssignmentVO(teacherBLService.getAssignmentById(assignmentId));
+        if (assignmentVO == null) {
+            return new ResultMessage(FAILED, false, null);
+        } else {
+            return new ResultMessage(null, true, assignmentVO);
+        }
     }
 
-    @PostMapping(value = "/student/assignment/")
-    public ResultMessage submitAssignment(@RequestBody AssignmentVO assignmentVO) {
-        return null;
+    @PostMapping(value = "/student/commitment/")
+    public ResultMessage submitCommitment(@RequestBody CommitmentVO commitmentVO) {
+        Commitment commitment = new Commitment();
+
+        commitment.setStudent(studentBLService.getStudentByUsername(commitmentVO.getStudentUsername()));
+        commitment.setAssignment(teacherBLService.getAssignmentById(commitmentVO.getAssignmentId()));
+        commitment.setSubmitTime(LocalDateTime.now());
+        Set<Answer> answerSet = new HashSet<>();
+        for (AnswerVO answerVO : commitmentVO.getAnswerList()) {
+            answerSet.add(this.toAnswer(answerVO, commitment));
+        }
+        commitment.setAnswerSet(answerSet);
+
+        commitment = studentBLService.commitAssignment(commitment);
+        if (commitment == null) {
+            return new ResultMessage(FAILED, false, null);
+        } else {
+            return new ResultMessage(null, true, null);
+        }
+    }
+
+    private AssignmentVO toAssignmentVO(Assignment assignment) {
+        if (assignment == null) return null;
+        List<QuestionVO> questionList = new ArrayList<>();
+        for (Question question : assignment.getQuestionSet()) {
+            questionList.add(new QuestionVO(question.getTitle(), question.getImagePath()));
+        }
+        return new AssignmentVO(assignment.getId(), assignment.getTitle(), assignment.getEndDate(), assignment.getTeacher().getUsername(), questionList);
+    }
+
+    private Answer toAnswer(AnswerVO answerVO, Commitment commitment) {
+        Answer answer = new Answer();
+        answer.setText(answerVO.getText());
+        answer.setCommitment(commitment);
+        answer.setQuestion(studentBLService.getQuestionById(answerVO.getQuestionId()));
+        Set<String> imagePaths = new HashSet<>(answerVO.getImageUrls());
+        answer.setImagePaths(imagePaths);
+        return answer;
     }
 }

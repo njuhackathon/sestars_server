@@ -13,4 +13,12 @@ import lombok.Data;
 public class QuestionVO {
     String title;
     String imageUrl;
+
+    public QuestionVO() {
+    }
+
+    public QuestionVO(String title, String imageUrl) {
+        this.title = title;
+        this.imageUrl = imageUrl;
+    }
 }

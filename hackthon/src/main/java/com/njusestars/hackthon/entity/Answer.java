@@ -2,10 +2,7 @@ package com.njusestars.hackthon.entity;
 
 import lombok.Data;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -25,6 +22,9 @@ public class Answer {
 
     @ManyToOne
     private Commitment commitment;
+
+    @OneToOne
+    private Question question;
 
     @ElementCollection
     private Set<String> imagePaths;
