@@ -19,4 +19,5 @@ public class CreateAssigmentVO {
     String teacherUsername;
     List<QuestionVO> questionList;
     LocalDateTime endTime;
+    List<Long> classroomIds;
 }
