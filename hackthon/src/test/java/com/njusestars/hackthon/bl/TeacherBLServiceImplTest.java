@@ -4,12 +4,10 @@ import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Classroom;
 import com.njusestars.hackthon.entity.Teacher;
 import com.njusestars.hackthon.entity.User;
-import com.njusestars.hackthon.enums.Result;
 import com.njusestars.hackthon.enums.UserType;
-import com.njusestars.hackthon.util.TestUtil;
+import com.njusestars.hackthon.util.MockUtil;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,9 +42,9 @@ public class TeacherBLServiceImplTest {
     }
 
     private Teacher getRandomTeacher(){
-        String username = TestUtil.getRandomString();
-        String realName = TestUtil.getRandomString();
-        String password = TestUtil.getRandomString();
+        String username = MockUtil.getRandomString();
+        String realName = MockUtil.getRandomString();
+        String password = MockUtil.getRandomString();
         UserType userType = UserType.TEACHER;
         User result = this.userBLService.register(username,realName,password,userType);
         assertEquals(Teacher.class, result.getClass());
@@ -58,7 +56,7 @@ public class TeacherBLServiceImplTest {
     }
 
     private Classroom getRandomClassroom(){
-        Classroom classroom = TestUtil.getRandomClassroom();
+        Classroom classroom = MockUtil.getRandomClassroom();
         classroom = teacherBLService.createClassroom(classroom);
         assertNotNull(classroom);
         return classroom;
@@ -66,7 +64,7 @@ public class TeacherBLServiceImplTest {
 
 
     private Assignment getRandomAssignment(Teacher teacher){
-        Assignment assignment = TestUtil.getRandomAssignment();
+        Assignment assignment = MockUtil.getRandomAssignment();
         assignment.setTeacher(teacher);
         assignment = teacherBLService.publishAssignment(assignment);
         return assignment;
@@ -105,7 +103,7 @@ public class TeacherBLServiceImplTest {
     @Test
     public void publishAssignment() {
 
-        Assignment assignment = TestUtil.getRandomAssignment();
+        Assignment assignment = MockUtil.getRandomAssignment();
         Teacher teacher = this.getRandomTeacher();
         assignment.setTeacher(teacher);
         assignment = teacherBLService.publishAssignment(assignment);
@@ -119,7 +117,7 @@ public class TeacherBLServiceImplTest {
 
     @Test
     public void cancelAssignment() {
-        Assignment assignment = TestUtil.getRandomAssignment();
+        Assignment assignment = MockUtil.getRandomAssignment();
         assertNotNull(assignment);
         Teacher teacher = this.getRandomTeacher();
         assignment.setTeacher(teacher);
@@ -142,7 +140,7 @@ public class TeacherBLServiceImplTest {
 
     @Test
     public void getToDoAssignmentListHard() {
-        Assignment assignment = TestUtil.getRandomAssignment();
+        Assignment assignment = MockUtil.getRandomAssignment();
         assignment.setTeacher(this.getRandomTeacher());
         assignment = teacherBLService.publishAssignment(assignment);
         List<Assignment> assignmentList = teacherBLService.getToDoAssignmentList(assignment.getTeacher());

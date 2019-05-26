@@ -34,7 +34,11 @@ public class StudentBLServiceImpl implements StudentBLService {
 
     @Override
     public Commitment commitAssignment(Commitment commitment) {
-        //TODO 参数检查
+        //参数检查
+        if (commitment == null) {
+            System.err.println("commitAssignment() commitment is null");
+            return null;
+        }
         Commitment newCommit = commitmentDao.save(commitment);
         return newCommit;
     }

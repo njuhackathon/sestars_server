@@ -1,8 +1,7 @@
 package com.njusestars.hackthon.util;
 
-import com.njusestars.hackthon.entity.Assignment;
-import com.njusestars.hackthon.entity.Classroom;
-import com.njusestars.hackthon.entity.Teacher;
+import com.njusestars.hackthon.entity.*;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -12,16 +11,16 @@ import java.util.UUID;
  * @author lzb
  * @date 2019/5/26 15:20
  */
-public class TestUtil {
+public class MockUtil {
 
     public static String getRandomString(){
         return UUID.randomUUID().toString();
     }
 
     public static Teacher getRandomTeacher(){
-        String username = TestUtil.getRandomString();
-        String realName = TestUtil.getRandomString();
-        String password = TestUtil.getRandomString();
+        String username = MockUtil.getRandomString();
+        String realName = MockUtil.getRandomString();
+        String password = MockUtil.getRandomString();
         Teacher teacher = new Teacher();
         teacher.setUsername(username);
         teacher.setRealName(realName);
@@ -41,5 +40,6 @@ public class TestUtil {
         assignment.setEndDate(LocalDateTime.of(2020, Month.APRIL,9,14,0));
         return assignment;
     }
+
 
 }

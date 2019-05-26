@@ -1,10 +1,9 @@
 package com.njusestars.hackthon.bl;
 
-import com.njusestars.hackthon.entity.Assignment;
-import com.njusestars.hackthon.entity.Teacher;
-import com.njusestars.hackthon.entity.User;
+import com.njusestars.hackthon.entity.*;
 import com.njusestars.hackthon.enums.UserType;
-import com.njusestars.hackthon.util.TestUtil;
+import com.njusestars.hackthon.util.MockUtil;
+import com.njusestars.hackthon.util.MockUtilService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +11,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -22,6 +25,9 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class StudentBLServiceImplTest {
+
+    @Autowired
+    private MockUtilService mockUtilService;
 
     @Autowired
     private StudentBLService studentBLService;
@@ -41,27 +47,46 @@ public class StudentBLServiceImplTest {
 
     }
 
-    private Teacher getRandomTeacher(){
-        String username = TestUtil.getRandomString();
-        String realName = TestUtil.getRandomString();
-        String password = TestUtil.getRandomString();
-        UserType userType = UserType.TEACHER;
-        User result = this.userBLService.register(username,realName,password,userType);
-        assertEquals(Teacher.class, result.getClass());
 
-        Teacher teacher = teacherBLService.getTeacherByUsername(username);
-        assertNotNull(teacher);
 
-        return teacher;
+
+    private Commitment getRandomCommitment(){
+
+
+        //1.创建一个老师
+        Teacher teacher = this.mockUtilService.getRandomTeacher();
+        //2.创建一个学生
+        Student student = this.mockUtilService.getRandomStudent();
+        //3.老师创建一个班级
+        Classroom classroom = this.mockUtilService.getRandomClassroom();
+        //4.学生加入班级
+        student = this.studentBLService.joinClassroom(classroom.getId(),student.getUsername());
+        //5.老师发布一个作业
+        Assignment assignment = this.mockUtilService.getRandomAssignment();
+        //6.学生完成这个作业并提交
+        Commitment commitment = new Commitment();
+
+        //TODO 还需要添加
+        return null;
+
     }
+
+
 
     @Test
     public void commitAssignment() {
-        Assignment assignment = TestUtil.getRandomAssignment();
-        Teacher teacher = this.getRandomTeacher();
-        assignment.setTeacher(teacher);
-        assignment = teacherBLService.publishAssignment(assignment);
+        //组装assignment
+        Assignment assignment = this.mockUtilService.getRandomAssignment();
 
+        //组装commitment
+        Commitment commitment = new Commitment();
+        commitment.setAssignment(assignment);
+        commitment.setStudent(null);
+        commitment.setSubmitTime(LocalDateTime.now());
+
+        Set<Answer> answerSet = new HashSet<>();
+        answerSet.add(null);
+        commitment.setAnswerSet(null);
 
 //        studentBLService.commitAssignment()
 
@@ -69,6 +94,7 @@ public class StudentBLServiceImplTest {
 
     @Test
     public void getToDoAssignmentList() {
+
     }
 
     @Test

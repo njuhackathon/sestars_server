@@ -1,5 +1,6 @@
 package com.njusestars.hackthon.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,6 +25,7 @@ public class Question {
     private String imagePath;
 
     @ManyToOne(cascade = CascadeType.MERGE)
+    @JsonIgnore
     private Assignment assignment;
 
     public Question() {
