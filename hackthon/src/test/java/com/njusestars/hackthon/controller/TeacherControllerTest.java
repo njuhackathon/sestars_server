@@ -1,7 +1,9 @@
 package com.njusestars.hackthon.controller;
 
 import com.njusestars.hackthon.dao.ClassroomDao;
+import com.njusestars.hackthon.dao.TeacherDao;
 import com.njusestars.hackthon.entity.Classroom;
+import com.njusestars.hackthon.entity.Teacher;
 import com.njusestars.hackthon.util.ResultMessage;
 import com.njusestars.hackthon.vo.*;
 import org.junit.Before;
@@ -13,7 +15,9 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -33,6 +37,8 @@ public class TeacherControllerTest {
     private UserController userController;
     @Autowired
     private ClassroomDao classroomDao;
+    @Autowired
+    private TeacherDao teacherDao;
 
     SignUpVO teacherVO;
 
@@ -98,7 +104,30 @@ public class TeacherControllerTest {
 
     @Test
     public void getMyClassroom() {
+        // 创建班级
+        Classroom classroom = new Classroom();
+        classroom.setClassroomName(LocalDateTime.now().toString());
+        classroom = classroomDao.save(classroom);
+
         ResultMessage resultMessage = teacherController.getMyClassroom(teacherVO.username);
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertTrue(resultMessage.data instanceof List);
+        int before = ((List<ClassroomVO>) resultMessage.data).size();
+
+        Teacher teacher = teacherDao.findById(teacherVO.username).orElse(null);
+        Set<Teacher> teacherSet = new HashSet<>();
+        teacherSet.add(teacher);
+        classroom.setTeacherSet(teacherSet);
+        classroomDao.save(classroom);
+
+        resultMessage = teacherController.getMyClassroom(teacherVO.username);
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertTrue(resultMessage.data instanceof List);
+        List<ClassroomVO> list = (List<ClassroomVO>) resultMessage.data;
+        int after = list.size();
+        assertEquals(1, after - before);
     }
 
     @Test
