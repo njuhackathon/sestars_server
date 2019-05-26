@@ -7,10 +7,7 @@ import com.njusestars.hackthon.util.ResultMessage;
 import com.njusestars.hackthon.vo.LoginVO;
 import com.njusestars.hackthon.vo.SignUpVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
@@ -20,6 +17,11 @@ public class UserController {
     @Autowired
     public UserController(UserBLService userBLService) {
         this.userBLService = userBLService;
+    }
+
+    @RequestMapping("/")
+    public void test(){
+        System.out.println("hello");
     }
 
     @PostMapping(value = "/user/login")

@@ -24,6 +24,9 @@ public class Classroom {
     @OneToMany
     private Set<Student> studentSet;
 
+    @ManyToMany
+    private Set<Assignment> assignmentSet;
+
 
 
     public void addTeacher(Teacher teacher){

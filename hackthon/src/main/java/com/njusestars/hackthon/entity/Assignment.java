@@ -2,10 +2,7 @@ package com.njusestars.hackthon.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -21,7 +18,7 @@ public class Assignment {
     @ManyToOne
     private Teacher teacher;
 
-    @OneToMany
+    @ManyToMany
     private Set<Classroom> classroomSet;
 
     @OneToMany

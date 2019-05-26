@@ -9,7 +9,9 @@ import com.njusestars.hackthon.entity.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author lzb
@@ -37,7 +39,15 @@ public class StudentBLServiceImpl implements StudentBLService {
         //参数检查
         //查询列表并过滤
         Classroom classroom = student.getClassroom();
-
-        return null;
+        List<Assignment> assignmentList = classroom.getAssignmentSet()
+                .parallelStream()
+                .filter(assignment -> assignment.getEndDate().isAfter(LocalDateTime.now()))
+                .collect(Collectors.toList());
+        return assignmentList;
     }
+
+
+
+
+
 }
