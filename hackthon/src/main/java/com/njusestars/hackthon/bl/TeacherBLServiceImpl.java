@@ -97,7 +97,8 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public List<Assignment> getDoneAssignmentList(Teacher teacher) {
-        Set<Assignment> assignmentSet = teacher.getAssignmentSet();
+        Teacher realTeacher = getTeacherByUsername(teacher.getUsername());
+        Set<Assignment> assignmentSet = realTeacher.getAssignmentSet();
         List<Assignment> assignmentList = assignmentSet.parallelStream()
                 .filter(assignment -> assignment.getEndDate().isBefore(LocalDateTime.now()))
                 .sorted((a,b)->{
@@ -130,5 +131,10 @@ public class TeacherBLServiceImpl implements TeacherBLService {
             System.err.println("getClassroomById() 这里传入的id不存在");
         }
         return classroom;
+    }
+
+    @Override
+    public List<Teacher> getAllTeacherList() {
+        return teacherDao.findAll();
     }
 }

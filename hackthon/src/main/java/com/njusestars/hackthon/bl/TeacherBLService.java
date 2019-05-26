@@ -103,6 +103,11 @@ public interface TeacherBLService {
      */
     Classroom getClassroomById(Long id);
 
+    /**
+     * 得到所有的教师列表
+     * @return
+     */
+    List<Teacher> getAllTeacherList();
 
 
 

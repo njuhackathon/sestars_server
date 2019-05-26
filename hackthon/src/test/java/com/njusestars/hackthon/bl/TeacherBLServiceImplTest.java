@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -61,6 +62,14 @@ public class TeacherBLServiceImplTest {
         classroom = teacherBLService.createClassroom(classroom);
         assertNotNull(classroom);
         return classroom;
+    }
+
+
+    private Assignment getRandomAssignment(Teacher teacher){
+        Assignment assignment = TestUtil.getRandomAssignment();
+        assignment.setTeacher(teacher);
+        assignment = teacherBLService.publishAssignment(assignment);
+        return assignment;
     }
 
     @Test
@@ -146,5 +155,19 @@ public class TeacherBLServiceImplTest {
 
     @Test
     public void getDoneAssignmentList() {
+
+        Teacher teacher = this.getRandomTeacher();
+        Assignment assignTodo = this.getRandomAssignment(teacher);
+        Assignment assignDone = this.getRandomAssignment(teacher);
+        Assignment assignDone2 = this.getRandomAssignment(teacher);
+
+        assignDone.setEndDate(LocalDateTime.now());
+        assignDone = teacherBLService.updateAssignment(assignDone);
+        assignDone2.setEndDate(LocalDateTime.now());
+        assignDone2 = teacherBLService.updateAssignment(assignDone2);
+
+        List<Assignment> assignmentList = teacherBLService.getDoneAssignmentList(teacher);
+        assertTrue(2==assignmentList.size());
+
     }
 }

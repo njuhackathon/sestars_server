@@ -25,7 +25,7 @@ public class Teacher extends User {
     @ManyToMany
     private Set<Classroom> classroomSet;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "teacher")
+    @OneToMany(cascade = CascadeType.MERGE,mappedBy = "teacher")
     private Set<Assignment> assignmentSet;
 
 
