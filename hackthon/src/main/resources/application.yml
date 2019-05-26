@@ -1,0 +1,26 @@
+server:
+  port: 80
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+#    url: jdbc:mysql://101.132.38.91:3306/videoupload?characterEncoding=UTF-8&useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/hackthon?characterEncoding=UTF-8&useSSL=true&serverTimezone=GMT%2B8
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+#    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+    properties:
+#      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#      dialect: org.hibernate.dialect.MySQLDialect
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+#        dialect: cn.edu.nju.videoupload.Dao.MYSQL5InnoDBDialectUTF8
+        enable_lazy_load_no_trans: true
+    open-in-view: true
