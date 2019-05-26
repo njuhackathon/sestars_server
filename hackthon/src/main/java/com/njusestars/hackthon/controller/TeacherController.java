@@ -67,16 +67,17 @@ public class TeacherController {
     @GetMapping(value = "/teacher/classroom/my")
     public ResultMessage getMyClassroom(@RequestParam String teacherUsername) {
         List<Classroom> classrooms = teacherBLService.getAllClassroom();
-        List<String> ret = new ArrayList<>();
+        List<ClassroomVO> classroomVOS = new ArrayList<>();
         for (Classroom classroom : classrooms) {
             for (Teacher teacher: classroom.getTeacherSet()) {
                 if (teacherUsername.equals(teacher.getUsername())) {
-                    ret.add(classroom.getClassroomName());
+                    ClassroomVO classroomVO = new ClassroomVO(classroom.getId(), classroom.getClassroomName());
+                    classroomVOS.add(classroomVO);
                     break;
                 }
             }
         }
-        return new ResultMessage(null, true, ret);
+        return new ResultMessage(null, true, classroomVOS);
     }
 
     @PostMapping(value = "/teacher/assignment/create")
