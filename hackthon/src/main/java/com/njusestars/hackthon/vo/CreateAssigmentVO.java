@@ -16,7 +16,7 @@ import java.util.List;
 @Data
 public class CreateAssigmentVO {
     String title;
-    Long teacherId;
-    List<Question> questionList;
+    String teacherUsername;
+    List<QuestionVO> questionList;
     LocalDateTime endTime;
 }

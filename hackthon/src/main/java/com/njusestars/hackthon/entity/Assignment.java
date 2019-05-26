@@ -19,7 +19,7 @@ public class Assignment {
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Teacher teacher;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Set<Question> questionSet;
 
     @ManyToMany

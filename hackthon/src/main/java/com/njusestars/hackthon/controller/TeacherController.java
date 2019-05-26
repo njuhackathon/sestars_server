@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 教师相关Controller
@@ -50,15 +52,17 @@ public class TeacherController {
     }
 
     @GetMapping(value = "/teacher/classroom/get-all")
-    public ResultMessage getAllClassroom() {
+    public ResultMessage getAllClassroom(@RequestParam String teacherUsername) {
         List<Classroom> classrooms = teacherBLService.getAllClassroom();
         List<ClassroomVO> classroomVOS = new ArrayList<>();
         for (Classroom classroom : classrooms) {
             ClassroomVO classroomVO = new ClassroomVO(classroom.getId(), classroom.getClassroomName());
-//            List<StudentVO> studentSet = new ArrayList<>();
-//            for (Student student: classroom.getStudentSet()) {
-//                studentSet.add(this.toStudentVO(student));
-//            }
+            for (Teacher teacher: classroom.getTeacherSet()) {
+                if (teacherUsername.equals(teacher.getUsername())) {
+                    classroomVO.setJoined(true);
+                    break;
+                }
+            }
             classroomVOS.add(classroomVO);
         }
         return new ResultMessage(null, true, classroomVOS);
@@ -82,8 +86,22 @@ public class TeacherController {
 
     @PostMapping(value = "/teacher/assignment/create")
     public ResultMessage createAssignment(@RequestBody CreateAssigmentVO createAssigmentVO) {
+        Teacher teacher = teacherBLService.getTeacherByUsername(createAssigmentVO.getTeacherUsername());
         Assignment assignment = new Assignment();
-        return null;
+        assignment.setTitle(createAssigmentVO.getTitle());
+        assignment.setTeacher(teacher);
+        assignment.setEndDate(createAssigmentVO.getEndTime());
+        Set<Question> questionSet = new HashSet<>();
+        for (QuestionVO questionVO: createAssigmentVO.getQuestionList()) {
+            questionSet.add(new Question(questionVO.getTitle(), questionVO.getImageUrl(), assignment));
+        }
+        assignment.setQuestionSet(questionSet);
+        assignment = teacherBLService.publishAssignment(assignment);
+        if (assignment == null) {
+            return new ResultMessage("FAILED", false, null);
+        } else {
+            return new ResultMessage(null, true, null);
+        }
     }
 
     private StudentVO toStudentVO(Student student) {
@@ -95,6 +113,6 @@ public class TeacherController {
 //    }
 //
 //    private QuestionVO toQuestionVO(Question question) {
-//
+//        return
 //    }
 }

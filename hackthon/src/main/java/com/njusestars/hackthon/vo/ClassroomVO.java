@@ -13,8 +13,9 @@ import java.util.List;
  **/
 @Data
 public class ClassroomVO {
-    private Long id;
-    private String classroomName;
+    Long id;
+    String classroomName;
+    Boolean joined;
 
 //    private List<StudentVO> studentSet;
 //
