@@ -22,6 +22,7 @@ import java.util.Set;
 @RestController
 @CrossOrigin
 public class TeacherController {
+    private static final String FAILED = "FAILED";
     private final TeacherBLService teacherBLService;
 
     @Autowired
@@ -35,7 +36,7 @@ public class TeacherController {
         classroom.setClassroomName(createClassroomVO.getClassroomName());
         classroom = teacherBLService.createClassroom(classroom);
         if (classroom == null) {
-            return new ResultMessage("FAILED", false, null);
+            return new ResultMessage(FAILED, false, null);
         } else {
             return this.joinClassroom(createClassroomVO.getTeacherUsername(), classroom.getId());
         }
@@ -45,7 +46,7 @@ public class TeacherController {
     public ResultMessage joinClassroom(@RequestParam String teacherUsername, @RequestParam Long classroomId) {
         Teacher teacher = teacherBLService.joinClassroom(teacherBLService.getClassroomById(classroomId), teacherBLService.getTeacherByUsername(teacherUsername));
         if (teacher == null) {
-            return new ResultMessage("FAILED", false, null);
+            return new ResultMessage(FAILED, false, null);
         } else {
             return new ResultMessage(null, true, null);
         }
@@ -76,6 +77,7 @@ public class TeacherController {
             for (Teacher teacher: classroom.getTeacherSet()) {
                 if (teacherUsername.equals(teacher.getUsername())) {
                     ClassroomVO classroomVO = new ClassroomVO(classroom.getId(), classroom.getClassroomName());
+                    classroomVO.setJoined(true);
                     classroomVOS.add(classroomVO);
                     break;
                 }
@@ -98,21 +100,9 @@ public class TeacherController {
         assignment.setQuestionSet(questionSet);
         assignment = teacherBLService.publishAssignment(assignment);
         if (assignment == null) {
-            return new ResultMessage("FAILED", false, null);
+            return new ResultMessage(FAILED, false, null);
         } else {
             return new ResultMessage(null, true, null);
         }
     }
-
-    private StudentVO toStudentVO(Student student) {
-        return new StudentVO(student.getUsername(), student.getRealName(), student.getClassroom().getId());
-    }
-
-//    private AssignmentVO toAssignmentVO(Assignment assignment) {
-//
-//    }
-//
-//    private QuestionVO toQuestionVO(Question question) {
-//        return
-//    }
 }
