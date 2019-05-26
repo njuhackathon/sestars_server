@@ -1,9 +1,10 @@
 package com.njusestars.hackthon.bl;
 
-import com.njusestars.hackthon.enums.Result;
+import com.njusestars.hackthon.entity.Parent;
+import com.njusestars.hackthon.entity.Student;
+import com.njusestars.hackthon.entity.Teacher;
+import com.njusestars.hackthon.entity.User;
 import com.njusestars.hackthon.enums.UserType;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,35 +27,27 @@ public class UserBLServiceImplTest {
     private UserBLService userBLService;
 
 
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
     public void loginTeacher() {
         String username = getRandomString();
         String realName = getRandomString();
         String password = getRandomString();
         UserType userType = UserType.TEACHER;
-        Result result = this.userBLService.register(username,realName,password,userType);
-        assertEquals(result,Result.SUCCESS);
+        User user = this.userBLService.register(username,realName,password,userType);
+        assertEquals(Teacher.class, user.getClass());
 
         //正确账号密码登录
-        Result loginResult = this.userBLService.login(username,password);
-        assertEquals(Result.SUCCESS,loginResult);
+        User loginResult = this.userBLService.login(username,password);
+        assertEquals(Teacher.class,loginResult.getClass());
 
         //正确账号，错误密码登录
-        assertEquals(Result.FAILED,userBLService.login(username,getRandomString()));
+        assertNull(userBLService.login(username, getRandomString()));
 
         //错误账号，正确密码
-        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),password));
+        assertNull(userBLService.login(getRandomString(), password));
 
         //错误账号，错误密码
-        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),getRandomString()));
+        assertNull(userBLService.login(getRandomString(), getRandomString()));
 
     }
 
@@ -64,21 +57,21 @@ public class UserBLServiceImplTest {
         String realName = getRandomString();
         String password = getRandomString();
         UserType userType = UserType.STUDENT;
-        Result result = this.userBLService.register(username,realName,password,userType);
-        assertEquals(result,Result.SUCCESS);
+        User result = this.userBLService.register(username,realName,password,userType);
+        assertEquals(Student.class, result.getClass());
 
         //正确账号密码登录
-        Result loginResult = this.userBLService.login(username,password);
-        assertEquals(Result.SUCCESS,loginResult);
+        User loginResult = this.userBLService.login(username,password);
+        assertEquals(Student.class,loginResult.getClass());
 
         //正确账号，错误密码登录
-        assertEquals(Result.FAILED,userBLService.login(username,getRandomString()));
+        assertNull(userBLService.login(username,getRandomString()));
 
         //错误账号，正确密码
-        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),password));
+        assertNull(userBLService.login(getRandomString(),password));
 
         //错误账号，错误密码
-        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),getRandomString()));
+        assertNull(userBLService.login(getRandomString(),getRandomString()));
 
     }
 
@@ -88,21 +81,21 @@ public class UserBLServiceImplTest {
         String realName = getRandomString();
         String password = getRandomString();
         UserType userType = UserType.PARENT;
-        Result result = this.userBLService.register(username,realName,password,userType);
-        assertEquals(result,Result.SUCCESS);
+        User result = this.userBLService.register(username,realName,password,userType);
+        assertEquals(Parent.class, result.getClass());
 
         //正确账号密码登录
-        Result loginResult = this.userBLService.login(username,password);
-        assertEquals(Result.SUCCESS,loginResult);
+        User loginResult = this.userBLService.login(username,password);
+        assertEquals(Parent.class,loginResult.getClass());
 
         //正确账号，错误密码登录
-        assertEquals(Result.FAILED,userBLService.login(username,getRandomString()));
+        assertNull(userBLService.login(username,getRandomString()));
 
         //错误账号，正确密码
-        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),password));
+        assertNull(userBLService.login(getRandomString(),password));
 
         //错误账号，错误密码
-        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),getRandomString()));
+        assertNull(userBLService.login(getRandomString(),getRandomString()));
 
     }
 
@@ -112,8 +105,8 @@ public class UserBLServiceImplTest {
         String realName = getRandomString();
         String password = getRandomString();
         UserType userType = UserType.TEACHER;
-        Result result = this.userBLService.register(username,realName,password,userType);
-        assertEquals(result,Result.SUCCESS);
+        User result = this.userBLService.register(username,realName,password,userType);
+        assertEquals(Teacher.class, result.getClass());
     }
 
     @Test
@@ -122,8 +115,8 @@ public class UserBLServiceImplTest {
         String realName = getRandomString();
         String password = getRandomString();
         UserType userType = UserType.PARENT;
-        Result result = this.userBLService.register(username,realName,password,userType);
-        assertEquals(result,Result.SUCCESS);
+        User result = this.userBLService.register(username,realName,password,userType);
+        assertEquals(Parent.class, result.getClass());
     }
 
 
@@ -133,8 +126,8 @@ public class UserBLServiceImplTest {
         String realName = getRandomString();
         String password = getRandomString();
         UserType userType = UserType.STUDENT;
-        Result result = this.userBLService.register(username,realName,password,userType);
-        assertEquals(result,Result.SUCCESS);
+        User result = this.userBLService.register(username,realName,password,userType);
+        assertEquals(Student.class, result.getClass());
     }
 
 

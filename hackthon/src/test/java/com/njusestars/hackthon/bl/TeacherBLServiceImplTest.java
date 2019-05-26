@@ -2,6 +2,7 @@ package com.njusestars.hackthon.bl;
 
 import com.njusestars.hackthon.entity.Classroom;
 import com.njusestars.hackthon.entity.Teacher;
+import com.njusestars.hackthon.entity.User;
 import com.njusestars.hackthon.enums.Result;
 import com.njusestars.hackthon.enums.UserType;
 import com.njusestars.hackthon.util.TestUtil;
@@ -42,8 +43,8 @@ public class TeacherBLServiceImplTest {
         String realName = TestUtil.getRandomString();
         String password = TestUtil.getRandomString();
         UserType userType = UserType.TEACHER;
-        Result result = this.userBLService.register(username,realName,password,userType);
-        assertEquals(result,Result.SUCCESS);
+        User result = this.userBLService.register(username,realName,password,userType);
+        assertEquals(Teacher.class, result.getClass());
 
         Teacher teacher = teacherBLService.getTeacherByUsername(username);
         assertNotNull(teacher);

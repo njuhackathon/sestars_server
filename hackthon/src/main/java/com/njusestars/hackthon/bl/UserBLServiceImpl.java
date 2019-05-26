@@ -31,48 +31,47 @@ public class UserBLServiceImpl implements UserBLService {
 
 
     @Override
-    public Result login(String username, String password) {
-        User user = null;
-        if (studentDao.existsById(username)){
-            user = studentDao.findById(username).orElse(null);
-
-        }
-        else if (teacherDao.existsByUsername(username)){
-            user = teacherDao.findById(username).orElse(null);
-        }
-        else if ((parentDao.existsByUsername(username))){
-            user = parentDao.findById(username).orElse(null);
-        }
-
-        if (user==null){
-            //用户不存在
-            return Result.NOT_EXIST;
-        }
-        if (!user.getPassword().equals(password)){
-            //账号密码不对
-            return Result.FAILED;
-        }
-
-        return Result.SUCCESS;
+    public User login(String username, String password) {
+//        User user = null;
+//        if (studentDao.existsById(username)) {
+//            user = studentDao.findById(username).orElse(null);
+//
+//        } else if (teacherDao.existsByUsername(username)) {
+//            user = teacherDao.findById(username).orElse(null);
+//        } else if ((parentDao.existsByUsername(username))) {
+//            user = parentDao.findById(username).orElse(null);
+//        }
+//
+//        if (user == null) {
+//            //用户不存在
+//            return Result.NOT_EXIST;
+//        }
+//        if (!user.getPassword().equals(password)) {
+//            //账号密码不对
+//            return Result.FAILED;
+//        }
+//
+//        return Result.SUCCESS;
+        return null;
     }
 
     @Override
-    public Result register(String username, String realName, String password, UserType type) {
-        boolean ifExists = this.existsUsername(username);
-        if (ifExists) {
-            return Result.EXIST;
-        }
-
-        User newUser = this.createUser(username,realName,password,type);
-
-        if (newUser == null) {
-            //返回null，注册不成功
-            return Result.FAILED;
-        }
-
-
-
-        return Result.SUCCESS;
+    public User register(String username, String realName, String password, UserType type) {
+//        boolean ifExists = this.existsUsername(username);
+//        if (ifExists) {
+//            return Result.EXIST;
+//        }
+//
+//        User newUser = this.createUser(username, realName, password, type);
+//
+//        if (newUser == null) {
+//            //返回null，注册不成功
+//            return Result.FAILED;
+//        }
+//
+//
+//        return Result.SUCCESS;
+        return null;
     }
 
     /**

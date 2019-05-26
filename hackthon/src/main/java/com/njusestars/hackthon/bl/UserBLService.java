@@ -1,5 +1,6 @@
 package com.njusestars.hackthon.bl;
 
+import com.njusestars.hackthon.entity.User;
 import com.njusestars.hackthon.enums.Result;
 import com.njusestars.hackthon.enums.UserType;
 import org.springframework.stereotype.Service;
@@ -19,7 +20,7 @@ public interface UserBLService {
      * @param password 密码
      * @return SUCCESS:成功, FAILED:密码不正确, NOT_EXIST:用户名不存在
      */
-    Result login(String username, String password);
+    User login(String username, String password);
 
 
     /**
@@ -30,7 +31,7 @@ public interface UserBLService {
      * @param type
      * @return
      */
-    Result register(String username, String realName, String password, UserType type);
+    User register(String username, String realName, String password, UserType type);
 
 
 
