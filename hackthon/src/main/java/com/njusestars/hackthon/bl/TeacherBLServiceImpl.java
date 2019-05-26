@@ -38,6 +38,11 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     }
 
     @Override
+    public Teacher updateTeacher(Teacher teacher) {
+        return teacherDao.save(teacher);
+    }
+
+    @Override
     public Classroom createClassroom(Classroom classroom) {
         Classroom newClassroom = classroomDao.save(classroom);
         return newClassroom;
@@ -58,6 +63,9 @@ public class TeacherBLServiceImpl implements TeacherBLService {
         //参数检验
         //保存
         Assignment newAssign = assignmentDao.save(assignment);
+        Teacher teacher = newAssign.getTeacher();
+        teacher.addAssignment(newAssign);
+        teacherDao.save(teacher);
         return newAssign;
     }
 

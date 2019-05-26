@@ -16,7 +16,7 @@ public class Assignment {
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
 
-    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @ManyToOne
     private Teacher teacher;
 
     @ManyToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
