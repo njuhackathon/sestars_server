@@ -36,9 +36,6 @@ public class TestUtil {
 
     public static Assignment getRandomAssignment(){
         Assignment assignment = new Assignment();
-        Teacher teacher = getRandomTeacher();
-        teacher.setUsername(getRandomString());
-        assignment.setTeacher(teacher);
         assignment.setTitle(getRandomString());
         assignment.setBeginDate(LocalDateTime.now());
         assignment.setEndDate(LocalDateTime.of(2020, Month.APRIL,9,14,0));

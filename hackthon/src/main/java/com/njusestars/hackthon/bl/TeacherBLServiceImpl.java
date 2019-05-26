@@ -62,11 +62,8 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     public Assignment publishAssignment(Assignment assignment) {
         //参数检验
         //保存
-        Assignment newAssign = assignmentDao.save(assignment);
-        Teacher teacher = newAssign.getTeacher();
-        teacher.addAssignment(newAssign);
-        teacherDao.save(teacher);
-        return newAssign;
+        assignment = assignmentDao.save(assignment);
+        return assignment;
     }
 
     @Override
@@ -76,7 +73,7 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public boolean cancelAssignment(Assignment toBeDelete) {
-        this.assignmentDao.delete(toBeDelete);
+        assignmentDao.deleteById(toBeDelete.getId());
         return true;
     }
 

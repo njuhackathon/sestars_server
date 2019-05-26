@@ -111,12 +111,16 @@ public class TeacherBLServiceImplTest {
     }
 
     @Test
-    @Ignore
     public void cancelAssignment() {
         Assignment assignment = TestUtil.getRandomAssignment();
         assertNotNull(assignment);
+        Teacher teacher = this.getRandomTeacher();
+        assignment.setTeacher(teacher);
         assignment =  teacherBLService.publishAssignment(assignment);
         assertNotNull(assignment);
+
+
+
         boolean ifDelete = teacherBLService.cancelAssignment(assignment);
         Assignment result = teacherBLService.getAssignmentById(assignment.getId());
         assertNull(result);

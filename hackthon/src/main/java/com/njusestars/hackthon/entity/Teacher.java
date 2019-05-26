@@ -25,7 +25,7 @@ public class Teacher extends User {
     @ManyToMany
     private Set<Classroom> classroomSet;
 
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "teacher")
     private Set<Assignment> assignmentSet;
 
 
@@ -38,6 +38,18 @@ public class Teacher extends User {
         }
         this.classroomSet.add(classroom);
     }
+
+
+    public boolean deleteAssignment(Assignment assignment){
+        for (Assignment each : assignmentSet) {
+            if (each.getId().equals(assignment.getId())){
+                assignmentSet.remove(each);
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public void addAssignment(Assignment assignment){
         if (assignment == null) {
@@ -61,6 +73,8 @@ public class Teacher extends User {
         Teacher teacher = (Teacher) o;
         return teacher.getUsername().equals(this.getUsername());
     }
+
+
 
 
 
