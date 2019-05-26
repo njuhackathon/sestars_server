@@ -1,10 +1,12 @@
 package com.njusestars.hackthon.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.Objects;
 
 /**
  * 题目
@@ -13,7 +15,8 @@ import javax.persistence.ManyToOne;
  *
  * @author Xunner
  **/
-@Data
+@Setter
+@Getter
 @Entity(name = "question")
 public class Question {
     @Id
@@ -31,5 +34,18 @@ public class Question {
         this.title = title;
         this.imagePath = imagePath;
         this.assignment = assignment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        return Objects.equals(getId(), question.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getImagePath());
     }
 }

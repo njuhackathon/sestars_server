@@ -4,10 +4,7 @@ import com.njusestars.hackthon.bl.StudentBLService;
 import com.njusestars.hackthon.bl.TeacherBLService;
 import com.njusestars.hackthon.entity.*;
 import com.njusestars.hackthon.util.ResultMessage;
-import com.njusestars.hackthon.vo.AnswerVO;
-import com.njusestars.hackthon.vo.AssignmentVO;
-import com.njusestars.hackthon.vo.CommitmentVO;
-import com.njusestars.hackthon.vo.QuestionVO;
+import com.njusestars.hackthon.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -76,6 +73,27 @@ public class StudentController {
         } else {
             return new ResultMessage(null, true, null);
         }
+    }
+
+    @GetMapping(value = "/student/classroom/not-join")
+    public ResultMessage getMyClassroom(@RequestParam String studentUsername) {
+        List<Classroom> classrooms = teacherBLService.getAllClassroom();
+        List<ClassroomVO> classroomVOS = new ArrayList<>();
+        for (Classroom classroom : classrooms) {
+            boolean joined = false;
+            for (Student student : classroom.getStudentSet()) {
+                if (studentUsername.equals(student.getUsername())) {
+                    joined = true;
+                    break;
+                }
+            }
+            if (!joined) {
+                ClassroomVO classroomVO = new ClassroomVO(classroom.getId(), classroom.getClassroomName());
+                classroomVO.setJoined(true);
+                classroomVOS.add(classroomVO);
+            }
+        }
+        return new ResultMessage(null, true, classroomVOS);
     }
 
     private AssignmentVO toAssignmentVO(Assignment assignment) {
