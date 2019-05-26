@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import java.util.Set;
 public class Commitment {
     @Id
     private Long id;
+    @ManyToOne
     private Assignment assignment;
     private String text;
     private Double score;

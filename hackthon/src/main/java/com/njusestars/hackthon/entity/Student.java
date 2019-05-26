@@ -11,5 +11,6 @@ import java.util.Set;
 @Entity(name = "student")
 public class Student extends User {
     private Classroom classroom;
+    
     private Set<Parent> parents;
 }
