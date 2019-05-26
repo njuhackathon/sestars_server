@@ -99,6 +99,10 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public Assignment getAssignmentById(Long id) {
-        return assignmentDao.findById(id).orElse(null);
+        Assignment assignment = assignmentDao.findById(id).orElse(null);
+        if (assignment == null) {
+            System.err.println("getAssignment(),这里拿到了一个null");
+        }
+        return assignment;
     }
 }

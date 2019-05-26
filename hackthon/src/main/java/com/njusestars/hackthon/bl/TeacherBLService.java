@@ -80,11 +80,18 @@ public interface TeacherBLService {
 
 
     /**
-     * 获取
+     * 获取assignment
      * @param id
      * @return
      */
     Assignment getAssignmentById(Long id);
+
+
+    /**
+     * 获取当前系统中所有班级
+     * @return 班级列表
+     */
+    List<Classroom> getAllClassroom();
 
 
 }
