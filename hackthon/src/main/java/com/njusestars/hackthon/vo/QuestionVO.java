@@ -11,6 +11,7 @@ import lombok.Data;
  **/
 @Data
 public class QuestionVO {
+    Long id;
     String title;
     String imageUrl;
 
@@ -21,4 +22,11 @@ public class QuestionVO {
         this.title = title;
         this.imageUrl = imageUrl;
     }
+
+    public QuestionVO(Long id, String title, String imageUrl) {
+        this.id = id;
+        this.title = title;
+        this.imageUrl = imageUrl;
+    }
 }
+
