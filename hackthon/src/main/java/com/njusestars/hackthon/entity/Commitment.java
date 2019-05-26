@@ -24,7 +24,7 @@ public class Commitment {
     @ManyToOne
     private Student student;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "commitment")
     private Set<Answer> answerSet;
 
     @Override

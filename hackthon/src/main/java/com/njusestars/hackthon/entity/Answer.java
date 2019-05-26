@@ -21,7 +21,7 @@ public class Answer {
     private String text;
     private Double score;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Commitment commitment;
 
     @OneToOne
