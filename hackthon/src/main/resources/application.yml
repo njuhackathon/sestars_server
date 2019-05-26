@@ -6,7 +6,7 @@ spring:
     username: root
     password: admin
 #    url: jdbc:mysql://101.132.38.91:3306/videoupload?characterEncoding=UTF-8&useSSL=true&serverTimezone=GMT%2B8
-    url: jdbc:mysql://localhost:3306/hackthon?characterEncoding=UTF-8&useSSL=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://47.100.97.128:3306/hackthon?characterEncoding=UTF-8&useSSL=true&serverTimezone=GMT%2B8
   jpa:
     database: mysql
     show-sql: true
