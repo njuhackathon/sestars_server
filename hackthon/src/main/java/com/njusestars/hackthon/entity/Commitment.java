@@ -1,6 +1,8 @@
 package com.njusestars.hackthon.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -20,6 +22,8 @@ public class Commitment {
     private Double score;
     private String comment;
     private LocalDateTime submitTime;
+
+    private Student student;
 
     @ElementCollection
     private Set<String> imagePaths;
