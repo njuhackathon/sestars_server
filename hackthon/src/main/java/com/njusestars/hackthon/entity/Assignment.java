@@ -10,12 +10,13 @@ import java.util.Set;
 @Entity(name = "assignment")
 public class Assignment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private Teacher teacher;
 
     @ManyToMany

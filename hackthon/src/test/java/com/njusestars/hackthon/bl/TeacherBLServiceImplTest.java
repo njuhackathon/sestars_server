@@ -1,5 +1,6 @@
 package com.njusestars.hackthon.bl;
 
+import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Classroom;
 import com.njusestars.hackthon.entity.Teacher;
 import com.njusestars.hackthon.entity.User;
@@ -82,6 +83,8 @@ public class TeacherBLServiceImplTest {
         assertNotNull(classroom);
 
         teacher = teacherBLService.getTeacherByUsername(teacher.getUsername());
+        assertNotNull(teacher);
+
 //        assertTrue(teacher.getClassroomSet().contains(classroom));
         //这里判断正确的条件需要重写
 
@@ -89,6 +92,13 @@ public class TeacherBLServiceImplTest {
 
     @Test
     public void publishAssignment() {
+
+        Assignment assignment = TestUtil.getRandomAssignment();
+        assignment = teacherBLService.publishAssignment(assignment);
+        assertNotNull(assignment);
+
+
+
     }
 
     @Test
