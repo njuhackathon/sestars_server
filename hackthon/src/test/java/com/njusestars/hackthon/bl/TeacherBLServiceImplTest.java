@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -118,7 +120,19 @@ public class TeacherBLServiceImplTest {
     }
 
     @Test
-    public void getToDoAssignmentList() {
+    public void getToDoAssignmentListEasy() {
+        Teacher teacher = this.getRandomTeacher();
+        List<Assignment> assignmentList = teacherBLService.getToDoAssignmentList(teacher);
+        assertTrue(assignmentList.size()==0);
+    }
+
+    @Test
+    public void getToDoAssignmentListHard() {
+        Assignment assignment = TestUtil.getRandomAssignment();
+        assignment = teacherBLService.publishAssignment(assignment);
+        List<Assignment> assignmentList = teacherBLService.getToDoAssignmentList(assignment.getTeacher());
+        assertTrue(assignmentList.size()==1);
+        assertTrue(assignmentList.contains(assignment));
     }
 
     @Test
