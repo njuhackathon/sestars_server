@@ -11,6 +11,6 @@ import lombok.Data;
  **/
 @Data
 public class CreateClassroomVO {
-    Long teacherId;
+    String teacherUsername;
     String classroomName;
 }

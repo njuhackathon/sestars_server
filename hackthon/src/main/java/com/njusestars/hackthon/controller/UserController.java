@@ -50,7 +50,7 @@ public class UserController {
             int type = UserType.valueOf(user.getClass().getSimpleName().toUpperCase()).ordinal();
             resultMessage = new ResultMessage(null, true, new UserVO(user.getUsername(), user.getRealName(), type));
         } else {
-            resultMessage = new ResultMessage("NOT_EXIST", false, null);
+            resultMessage = new ResultMessage("EXIST", false, null);
         }
         return resultMessage;
     }
