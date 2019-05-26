@@ -19,10 +19,7 @@ public class UserController {
         this.userBLService = userBLService;
     }
 
-    @RequestMapping("/")
-    public void test(){
-        System.out.println("hello");
-    }
+
 
     @PostMapping(value = "/user/login")
     public ResultMessage login(@RequestBody LoginVO loginVO) {

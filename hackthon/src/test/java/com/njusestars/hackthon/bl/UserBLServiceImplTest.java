@@ -59,6 +59,54 @@ public class UserBLServiceImplTest {
     }
 
     @Test
+    public void loginStudent() {
+        String username = getRandomString();
+        String realName = getRandomString();
+        String password = getRandomString();
+        UserType userType = UserType.STUDENT;
+        Result result = this.userBLService.register(username,realName,password,userType);
+        assertEquals(result,Result.SUCCESS);
+
+        //正确账号密码登录
+        Result loginResult = this.userBLService.login(username,password);
+        assertEquals(Result.SUCCESS,loginResult);
+
+        //正确账号，错误密码登录
+        assertEquals(Result.FAILED,userBLService.login(username,getRandomString()));
+
+        //错误账号，正确密码
+        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),password));
+
+        //错误账号，错误密码
+        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),getRandomString()));
+
+    }
+
+    @Test
+    public void loginParent() {
+        String username = getRandomString();
+        String realName = getRandomString();
+        String password = getRandomString();
+        UserType userType = UserType.PARENT;
+        Result result = this.userBLService.register(username,realName,password,userType);
+        assertEquals(result,Result.SUCCESS);
+
+        //正确账号密码登录
+        Result loginResult = this.userBLService.login(username,password);
+        assertEquals(Result.SUCCESS,loginResult);
+
+        //正确账号，错误密码登录
+        assertEquals(Result.FAILED,userBLService.login(username,getRandomString()));
+
+        //错误账号，正确密码
+        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),password));
+
+        //错误账号，错误密码
+        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),getRandomString()));
+
+    }
+
+    @Test
     public void registerTeacher() {
         String username = getRandomString();
         String realName = getRandomString();
