@@ -76,7 +76,7 @@ public class StudentController {
     }
 
     @GetMapping(value = "/student/classroom/not-join")
-    public ResultMessage getMyClassroom(@RequestParam String studentUsername) {
+    public ResultMessage getClassroomNotJoin(@RequestParam String studentUsername) {
         List<Classroom> classrooms = teacherBLService.getAllClassroom();
         List<ClassroomVO> classroomVOS = new ArrayList<>();
         for (Classroom classroom : classrooms) {
@@ -96,7 +96,15 @@ public class StudentController {
         return new ResultMessage(null, true, classroomVOS);
     }
 
-    
+    @GetMapping(value = "/student/classroom/")
+    public ResultMessage getMyClassroom(@RequestParam String studentUsername) {
+        Student student = studentBLService.getStudentByUsername(studentUsername);
+        if (student.getClassroom() == null) {
+            return new ResultMessage("NOT_EXIST", false, null);
+        } else {
+            return new ResultMessage(null, true, student.getClassroom());
+        }
+    }
 
     private AssignmentVO toAssignmentVO(Assignment assignment) {
         if (assignment == null) return null;
