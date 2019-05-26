@@ -6,11 +6,13 @@ import com.njusestars.hackthon.util.ResultMessage;
 import com.njusestars.hackthon.vo.LoginVO;
 import com.njusestars.hackthon.vo.SignUpVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin
 public class UserController {
     private final UserBLService userBLService;
 
