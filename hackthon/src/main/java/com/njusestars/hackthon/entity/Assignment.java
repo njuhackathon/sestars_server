@@ -22,5 +22,8 @@ public class Assignment {
     private Teacher teacher;
 
     @OneToMany
+    private Set<Classroom> classroomSet;
+
+    @OneToMany
     private Set<Commitment> commitments;
 }

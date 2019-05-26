@@ -47,8 +47,10 @@ public class TeacherBLServiceImpl implements TeacherBLService {
         classroom.addTeacher(teacher);
         classroomDao.save(classroom);
 
-        teacher.addClassroom(classroom);
-        teacherDao.save(teacher);
+
+        //不确定是否需要
+//        teacher.addClassroom(classroom);
+//        teacherDao.save(teacher);
 
         return teacher;
     }

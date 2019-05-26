@@ -5,6 +5,7 @@ import com.njusestars.hackthon.entity.Commitment;
 import com.njusestars.hackthon.entity.Student;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -22,7 +23,7 @@ public interface StudentBLService {
      * @param commitment 对参数有特定要求
      * @return 最终形成的提交信息
      */
-    Commitment commitAssignment(Commitment commitment);
+    Commitment commitAssignment(@NotNull Commitment commitment);
 
 
     /**
@@ -30,7 +31,7 @@ public interface StudentBLService {
      * @param student 对参数有假设
      * @return
      */
-    List<Assignment> getToDoAssignmentList(Student student);
+    List<Assignment> getToDoAssignmentList(@NotNull Student student);
 
 
 
