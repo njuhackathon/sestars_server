@@ -1,4 +1,4 @@
-package vo;
+package com.njusestars.hackthon.vo;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package util;
+package com.njusestars.hackthon.util;
 
 import lombok.Data;
 
