@@ -7,6 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import java.util.Set;
 
+/**
+ * 家长
+ * <br>
+ * created on 2019/05/26
+ *
+ * @author 巽
+ **/
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity(name = "parent")
