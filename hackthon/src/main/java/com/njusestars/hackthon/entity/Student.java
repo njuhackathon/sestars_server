@@ -17,7 +17,8 @@ import java.util.Set;
 @Data
 @Entity(name = "student")
 public class Student extends User {
-    @ManyToOne
+
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Classroom classroom;
 
     @ManyToMany

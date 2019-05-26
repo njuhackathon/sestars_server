@@ -28,7 +28,7 @@ public class Assignment {
     @ManyToMany
     private Set<Classroom> classroomSet;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "assignment")
     private Set<Commitment> commitments;
 
     @Override

@@ -23,7 +23,7 @@ public class Classroom {
     @ManyToMany
     private Set<Teacher> teacherSet;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "classroom")
     private Set<Student> studentSet;
 
     @ManyToMany

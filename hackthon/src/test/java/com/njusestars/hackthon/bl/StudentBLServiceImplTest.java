@@ -1,5 +1,8 @@
 package com.njusestars.hackthon.bl;
 
+import com.njusestars.hackthon.entity.Assignment;
+import com.njusestars.hackthon.entity.Teacher;
+import com.njusestars.hackthon.util.TestUtil;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +24,8 @@ public class StudentBLServiceImplTest {
     @Autowired
     private StudentBLService studentBLService;
 
+    @Autowired
+    private TeacherBLService teacherBLService;
 
     @Before
     public void setUp() throws Exception {
@@ -28,10 +33,16 @@ public class StudentBLServiceImplTest {
 
     @After
     public void tearDown() throws Exception {
+
     }
 
     @Test
     public void commitAssignment() {
+        Assignment assignment = TestUtil.getRandomAssignment();
+        Teacher teacher = TestUtil.getRandomTeacher();
+        assignment.setTeacher(teacher);
+        assignment = teacherBLService.publishAssignment(assignment);
+//        studentBLService.commitAssignment()
 
     }
 
