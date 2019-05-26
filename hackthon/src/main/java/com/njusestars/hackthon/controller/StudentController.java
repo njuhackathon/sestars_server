@@ -102,7 +102,8 @@ public class StudentController {
         if (student.getClassroom() == null) {
             return new ResultMessage("NOT_EXIST", false, null);
         } else {
-            return new ResultMessage(null, true, student.getClassroom());
+            Classroom classroom = student.getClassroom();
+            return new ResultMessage(null, true, new ClassroomVO(classroom.getId(), classroom.getClassroomName()));
         }
     }
 

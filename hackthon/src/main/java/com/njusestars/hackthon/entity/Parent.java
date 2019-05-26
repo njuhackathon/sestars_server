@@ -1,7 +1,8 @@
 package com.njusestars.hackthon.entity;
 
-import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
@@ -15,7 +16,8 @@ import java.util.Set;
  * @author 巽
  **/
 @EqualsAndHashCode(callSuper = true)
-@Data
+@Getter
+@Setter
 @Entity(name = "parent")
 public class Parent extends User {
     @ManyToMany
