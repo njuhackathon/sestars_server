@@ -1,6 +1,7 @@
 package com.njusestars.hackthon.bl;
 
 import com.njusestars.hackthon.entity.Assignment;
+import com.njusestars.hackthon.entity.Classroom;
 import com.njusestars.hackthon.entity.Teacher;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,6 @@ import java.util.List;
 public interface TeacherBLService {
 
 
-    /**
-     * 创建新的老师
-     * @param teacher
-     * @return
-     */
-    Teacher createTeacher(Teacher teacher);
-
 
     /**
      * 根据teacher username返回教师信息
@@ -28,6 +22,23 @@ public interface TeacherBLService {
      * @return
      */
     Teacher getTeacherByUsername(String username);
+
+
+    /**
+     * 创建新的班级
+     * @param classroom
+     * @return
+     */
+    Classroom createClassroom(Classroom classroom);
+
+
+    /**
+     *
+     * @param classroom
+     * @param teacher
+     * @return
+     */
+    Teacher joinClassroom(Classroom classroom,Teacher teacher);
 
 
     /**

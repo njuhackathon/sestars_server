@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import java.util.Set;
 
@@ -14,7 +15,9 @@ public class Classroom {
     @Id
     private Long id;
 
-    @OneToMany
+    private String classroomName;
+
+    @ManyToMany
     private Set<Teacher> teachers;
 
     @OneToMany
