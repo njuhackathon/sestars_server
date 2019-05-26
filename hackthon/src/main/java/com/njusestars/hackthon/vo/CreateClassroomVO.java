@@ -13,4 +13,12 @@ import lombok.Data;
 public class CreateClassroomVO {
     String teacherUsername;
     String classroomName;
+
+    public CreateClassroomVO() {
+    }
+
+    public CreateClassroomVO(String teacherUsername, String classroomName) {
+        this.teacherUsername = teacherUsername;
+        this.classroomName = classroomName;
+    }
 }
