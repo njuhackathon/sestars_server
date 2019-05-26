@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -73,7 +74,12 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public List<Assignment> getToDoAssignmentList(Teacher teacher) {
-        Set<Assignment> assignmentSet = teacher.getAssignmentSet();
+        Teacher realTeacher = teacherDao.findById(teacher.getUsername()).orElse(null);
+        if (realTeacher == null) {
+            System.err.println("todoAssignmentList() 这里传入的teacher为null");
+            return new ArrayList<>();
+        }
+        Set<Assignment> assignmentSet = realTeacher.getAssignmentSet();
         List<Assignment> assignmentList = assignmentSet.parallelStream()
                 .filter(assignment -> assignment.getEndDate().isAfter(LocalDateTime.now()))
                 .sorted((a,b)->{
@@ -110,5 +116,10 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     public List<Classroom> getAllClassroom() {
         List<Classroom> classroomList = classroomDao.findAll();
         return classroomList;
+    }
+
+    @Override
+    public Classroom getClassroomById(Long id) {
+        return null;
     }
 }

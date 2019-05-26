@@ -94,4 +94,12 @@ public interface TeacherBLService {
     List<Classroom> getAllClassroom();
 
 
+    /**
+     * 通过id得到classroom
+     * @param id
+     * @return
+     */
+    Classroom getClassroomById(Long id);
+
+
 }

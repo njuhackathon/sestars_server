@@ -9,6 +9,7 @@ import com.njusestars.hackthon.enums.UserType;
 import com.njusestars.hackthon.util.TestUtil;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,6 +128,7 @@ public class TeacherBLServiceImplTest {
     }
 
     @Test
+    @Ignore
     public void getToDoAssignmentListHard() {
         Assignment assignment = TestUtil.getRandomAssignment();
         assignment = teacherBLService.publishAssignment(assignment);
