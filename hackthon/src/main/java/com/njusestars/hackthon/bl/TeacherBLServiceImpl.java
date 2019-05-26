@@ -1,5 +1,6 @@
 package com.njusestars.hackthon.bl;
 
+import com.njusestars.hackthon.dao.AssignmentDao;
 import com.njusestars.hackthon.dao.ClassroomDao;
 import com.njusestars.hackthon.dao.TeacherDao;
 import com.njusestars.hackthon.entity.Assignment;
@@ -8,7 +9,10 @@ import com.njusestars.hackthon.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * @author lzb
@@ -22,6 +26,9 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Autowired
     private ClassroomDao classroomDao;
+
+    @Autowired
+    private AssignmentDao assignmentDao;
 
 
     @Override
@@ -48,21 +55,41 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public Assignment publishAssignment(Assignment assignment) {
-        return null;
+        //参数检验
+        //保存
+        Assignment newAssign = assignmentDao.save(assignment);
+        return newAssign;
     }
 
     @Override
     public boolean cancelAssignment(Assignment toBeDelete) {
-        return false;
+        this.assignmentDao.delete(toBeDelete);
+        return true;
     }
 
     @Override
     public List<Assignment> getToDoAssignmentList(Teacher teacher) {
-        return null;
+        Set<Assignment> assignmentSet = teacher.getAssignmentSet();
+        List<Assignment> assignmentList = assignmentSet.parallelStream()
+                .filter(assignment -> assignment.getEndDate().isAfter(LocalDateTime.now()))
+                .sorted((a,b)->{
+                    boolean flag = a.getEndDate().isBefore(b.getEndDate());
+                    return (flag)?1:-1;
+                })
+                .collect(Collectors.toList());
+        return assignmentList;
     }
 
     @Override
     public List<Assignment> getDoneAssignmentList(Teacher teacher) {
-        return null;
+        Set<Assignment> assignmentSet = teacher.getAssignmentSet();
+        List<Assignment> assignmentList = assignmentSet.parallelStream()
+                .filter(assignment -> assignment.getEndDate().isBefore(LocalDateTime.now()))
+                .sorted((a,b)->{
+                    boolean flag = a.getEndDate().isBefore(b.getEndDate());
+                    return (flag)?1:-1;
+                })
+                .collect(Collectors.toList());
+        return assignmentList;
     }
 }

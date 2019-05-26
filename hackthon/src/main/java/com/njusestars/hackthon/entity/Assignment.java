@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -16,6 +17,10 @@ public class Assignment {
     private String title;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
+
+    @ManyToOne
+    private Teacher teacher;
+
     @OneToMany
     private Set<Commitment> commitments;
 }

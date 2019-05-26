@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +24,9 @@ public class Teacher extends User {
 
     @ManyToMany
     private Set<Classroom> classroomSet;
+
+    @OneToMany
+    private Set<Assignment> assignmentSet;
 
 
     public void addClassroom(Classroom classroom){
