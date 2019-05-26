@@ -9,5 +9,8 @@ import org.springframework.stereotype.Repository;
  * @date 2019/5/26 10:11
  */
 @Repository
-public interface TeacherDao extends JpaRepository<Teacher, Long> {
+public interface TeacherDao extends JpaRepository<Teacher, String> {
+
+    boolean existsByUsername(String username);
+
 }

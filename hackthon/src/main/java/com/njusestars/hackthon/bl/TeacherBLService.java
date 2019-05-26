@@ -14,6 +14,14 @@ import java.util.List;
 public interface TeacherBLService {
 
     /**
+     * 根据teacher username返回教师信息
+     * @param username
+     * @return
+     */
+    Teacher getTeacherByUsername(String username);
+
+
+    /**
      * 教师发布作业
      * @param assignment 对参数有假设，待定
      * @return 真实形成的作业布置项
