@@ -19,7 +19,6 @@ import java.util.Set;
 @Data
 @Entity(name = "student")
 public class Student extends User {
-
     @OneToOne
     private Classroom classroom;
 

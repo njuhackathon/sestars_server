@@ -19,7 +19,8 @@ spring:
 #      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 #      dialect: org.hibernate.dialect.MySQLDialect
       hibernate:
-        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        dialect: org.hibernate.dialect.MySQL57Dialect
+#        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
 #        dialect: cn.edu.nju.videoupload.Dao.MYSQL5InnoDBDialectUTF8
         enable_lazy_load_no_trans: true
     open-in-view: true
