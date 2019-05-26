@@ -30,7 +30,7 @@ public class FileController {
 
     private String getJarDir(){
         ApplicationHome h = new ApplicationHome(getClass());
-        File jarF = h.getSource();
+        File jarF = h.getDir();
         return jarF.getParentFile().toString();
     }
 
@@ -53,7 +53,7 @@ public class FileController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new ResultMessage("Upload Success", true, path);
+        return new ResultMessage("Upload Success", true, uuid);
     }
 
     @GetMapping(value = "/img/{fileName}")
