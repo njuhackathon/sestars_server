@@ -108,6 +108,7 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public List<Classroom> getAllClassroom() {
-        return null;
+        List<Classroom> classroomList = classroomDao.findAll();
+        return classroomList;
     }
 }
