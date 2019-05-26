@@ -9,6 +9,13 @@ import com.njusestars.hackthon.vo.SignUpVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 用户相关Controller
+ * <br>
+ * created on 2019/5/26
+ *
+ * @author Xunner
+ **/
 @RestController
 @CrossOrigin
 public class UserController {

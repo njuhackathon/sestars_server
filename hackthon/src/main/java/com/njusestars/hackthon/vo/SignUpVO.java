@@ -1,8 +1,5 @@
 package com.njusestars.hackthon.vo;
 
-import lombok.Data;
-
-@Data
 public class SignUpVO {
     public String username;
     public String realName;
