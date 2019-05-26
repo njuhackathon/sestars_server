@@ -45,13 +45,10 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     @Override
     public Teacher joinClassroom(Classroom classroom, Teacher teacher) {
         classroom.addTeacher(teacher);
-        classroomDao.save(classroom);
+        classroom = classroomDao.save(classroom);
 
-
-        //不确定是否需要
-//        teacher.addClassroom(classroom);
-//        teacherDao.save(teacher);
-
+        teacher.addClassroom(classroom);
+        teacher = teacherDao.save(teacher);
         return teacher;
     }
 
