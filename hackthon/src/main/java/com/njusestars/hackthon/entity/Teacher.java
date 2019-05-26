@@ -2,12 +2,15 @@ package com.njusestars.hackthon.entity;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -17,8 +20,8 @@ import java.util.Set;
  *
  * @author 巽
  **/
-@EqualsAndHashCode(callSuper = true)
-@Data
+@Setter
+@Getter
 @Entity(name = "teacher")
 public class Teacher extends User {
 
@@ -37,6 +40,15 @@ public class Teacher extends User {
             classroomSet = new HashSet<>();
         }
         this.classroomSet.add(classroom);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Teacher teacher = (Teacher) o;
+        return teacher.getUsername().equals(this.getUsername());
     }
 
 
