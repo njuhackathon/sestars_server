@@ -1,12 +1,15 @@
 package com.njusestars.hackthon.controller;
 
 import com.njusestars.hackthon.util.ResultMessage;
+import com.njusestars.hackthon.vo.CreateAssigmentVO;
 import com.njusestars.hackthon.vo.CreateClassroomVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.time.LocalDateTime;
 
 import static org.junit.Assert.*;
 
@@ -25,8 +28,18 @@ public class TeacherControllerTest {
 
     @Test
     public void createClassroom() {
-        CreateClassroomVO createClassroomVO = new CreateClassroomVO("", "Grade 1");
-//        ResultMessage resultMessage = teacherController.createClassroom();
+        // 正常创建
+        CreateClassroomVO createClassroomVO = new CreateClassroomVO(LocalDateTime.now().toString(), LocalDateTime.now().toString());
+        ResultMessage resultMessage = teacherController.createClassroom(createClassroomVO);
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertNull(resultMessage.data);
+
+        // 再来一次
+        resultMessage = teacherController.createClassroom(createClassroomVO);
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertNull(resultMessage.data);
     }
 
     @Test

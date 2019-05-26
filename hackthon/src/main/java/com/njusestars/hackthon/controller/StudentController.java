@@ -106,6 +106,16 @@ public class StudentController {
         }
     }
 
+    @GetMapping(value = "/student/classroom/join")
+    public ResultMessage joinClassroom(@RequestParam String studentUsername, @RequestParam Long classroomId) {
+        Student student = studentBLService.joinClassroom(classroomId, studentUsername);
+        if (student.getClassroom() == null) {
+            return new ResultMessage(FAILED, false, null);
+        } else {
+            return new ResultMessage(null, true, student.getClassroom().getId());
+        }
+    }
+
     private AssignmentVO toAssignmentVO(Assignment assignment) {
         if (assignment == null) return null;
         List<QuestionVO> questionList = new ArrayList<>();
