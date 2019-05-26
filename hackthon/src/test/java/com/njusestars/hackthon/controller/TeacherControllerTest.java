@@ -25,7 +25,7 @@ public class TeacherControllerTest {
 
     @Test
     public void createClassroom() {
-        CreateClassroomVO createClassroomVO = new CreateClassroomVO();
+        CreateClassroomVO createClassroomVO = new CreateClassroomVO("", "Grade 1");
 //        ResultMessage resultMessage = teacherController.createClassroom();
     }
 

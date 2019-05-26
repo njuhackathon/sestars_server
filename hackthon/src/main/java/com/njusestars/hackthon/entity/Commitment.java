@@ -3,10 +3,7 @@ package com.njusestars.hackthon.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
@@ -16,6 +13,7 @@ import java.util.Set;
 @Entity(name = "commitment")
 public class Commitment {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     private Assignment assignment;

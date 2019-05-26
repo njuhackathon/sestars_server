@@ -3,9 +3,7 @@ package com.njusestars.hackthon.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.Objects;
 
 /**
@@ -20,6 +18,7 @@ import java.util.Objects;
 @Entity(name = "question")
 public class Question {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String imagePath;

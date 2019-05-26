@@ -16,6 +16,7 @@ import java.util.Set;
 @Entity(name = "answer")
 public class Answer {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String text;
     private Double score;

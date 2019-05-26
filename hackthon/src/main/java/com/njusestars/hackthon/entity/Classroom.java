@@ -14,7 +14,6 @@ import java.util.Set;
 @Setter
 @Entity(name = "classroom")
 public class Classroom {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
