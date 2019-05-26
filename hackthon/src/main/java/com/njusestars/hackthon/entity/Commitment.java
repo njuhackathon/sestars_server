@@ -1,13 +1,11 @@
 package com.njusestars.hackthon.entity;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -26,6 +24,7 @@ public class Commitment {
     @ManyToOne
     private Student student;
 
-    @ElementCollection
-    private Set<String> imagePaths;
+    @OneToMany
+    private Set<Answer> answerSet;
+
 }

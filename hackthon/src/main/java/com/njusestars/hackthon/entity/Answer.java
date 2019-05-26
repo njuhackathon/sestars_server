@@ -2,25 +2,30 @@ package com.njusestars.hackthon.entity;
 
 import lombok.Data;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.Set;
 
 /**
- * 题目
+ * 回答
  * <br>
  * created on 2019/5/26
  *
  * @author Xunner
  **/
 @Data
-@Entity(name = "question")
-public class Question {
+@Entity(name = "answer")
+public class Answer {
     @Id
     private Long id;
-    private String title;
-    private String imagePath;
+    private String text;
+    private Double score;
 
     @ManyToOne
-    private Assignment assignment;
+    private Commitment commitment;
+
+    @ElementCollection
+    private Set<String> imagePaths;
 }

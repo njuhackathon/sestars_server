@@ -1,6 +1,7 @@
 package com.njusestars.hackthon.vo;
 
 import com.njusestars.hackthon.entity.Question;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  *
  * @author Xunner
  **/
+@Data
 public class CreateAssigmentVO {
     String title;
     Long teacherId;
