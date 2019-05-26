@@ -35,13 +35,23 @@ public class UserBLServiceImplTest {
     }
 
     @Test
-    public void login() {
+    public void loginTeacher() {
         String username = getRandomString();
         String realName = getRandomString();
         String password = getRandomString();
         UserType userType = UserType.TEACHER;
         Result result = this.userBLService.register(username,realName,password,userType);
         assertEquals(result,Result.SUCCESS);
+
+        //正确账号密码登录
+        Result loginResult = this.userBLService.login(username,password);
+        assertEquals(Result.SUCCESS,loginResult);
+
+        //正确账号，错误密码登录
+        assertEquals(Result.FAILED,userBLService.login(username,getRandomString()));
+
+        
+
     }
 
     @Test
