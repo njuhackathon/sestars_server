@@ -25,7 +25,7 @@ public class Assignment {
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "assignment")
     private Set<Question> questionSet;
 
-    @ManyToMany
+    @ManyToMany(targetEntity = Classroom.class, mappedBy = "assignmentSet")
     private Set<Classroom> classroomSet;
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "assignment")
