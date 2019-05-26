@@ -2,6 +2,8 @@ package com.njusestars.hackthon.bl;
 
 import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Teacher;
+import com.njusestars.hackthon.entity.User;
+import com.njusestars.hackthon.enums.UserType;
 import com.njusestars.hackthon.util.TestUtil;
 import org.junit.After;
 import org.junit.Before;
@@ -27,6 +29,9 @@ public class StudentBLServiceImplTest {
     @Autowired
     private TeacherBLService teacherBLService;
 
+    @Autowired
+    private UserBLService userBLService;
+
     @Before
     public void setUp() throws Exception {
     }
@@ -36,12 +41,28 @@ public class StudentBLServiceImplTest {
 
     }
 
+    private Teacher getRandomTeacher(){
+        String username = TestUtil.getRandomString();
+        String realName = TestUtil.getRandomString();
+        String password = TestUtil.getRandomString();
+        UserType userType = UserType.TEACHER;
+        User result = this.userBLService.register(username,realName,password,userType);
+        assertEquals(Teacher.class, result.getClass());
+
+        Teacher teacher = teacherBLService.getTeacherByUsername(username);
+        assertNotNull(teacher);
+
+        return teacher;
+    }
+
     @Test
     public void commitAssignment() {
         Assignment assignment = TestUtil.getRandomAssignment();
-        Teacher teacher = TestUtil.getRandomTeacher();
+        Teacher teacher = this.getRandomTeacher();
         assignment.setTeacher(teacher);
         assignment = teacherBLService.publishAssignment(assignment);
+
+
 //        studentBLService.commitAssignment()
 
     }
