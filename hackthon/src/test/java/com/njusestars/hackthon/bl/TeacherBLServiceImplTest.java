@@ -128,7 +128,6 @@ public class TeacherBLServiceImplTest {
     }
 
     @Test
-    @Ignore
     public void getToDoAssignmentListHard() {
         Assignment assignment = TestUtil.getRandomAssignment();
         assignment = teacherBLService.publishAssignment(assignment);

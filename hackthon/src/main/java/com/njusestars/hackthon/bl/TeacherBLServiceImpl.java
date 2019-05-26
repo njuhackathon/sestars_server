@@ -120,6 +120,10 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public Classroom getClassroomById(Long id) {
-        return null;
+        Classroom classroom = classroomDao.findById(id).orElse(null);
+        if (classroom == null) {
+            System.err.println("getClassroomById() 这里传入的id不存在");
+        }
+        return classroom;
     }
 }
