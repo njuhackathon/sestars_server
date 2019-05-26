@@ -111,6 +111,7 @@ public class TeacherBLServiceImplTest {
     }
 
     @Test
+    @Ignore
     public void cancelAssignment() {
         Assignment assignment = TestUtil.getRandomAssignment();
         assertNotNull(assignment);
