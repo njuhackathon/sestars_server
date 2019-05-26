@@ -65,10 +65,14 @@ public class UserBLServiceImpl implements UserBLService {
 
         User newUser = this.createUser(username,realName,password,type);
 
+        if (newUser == null) {
+            //返回null，注册不成功
+            return Result.FAILED;
+        }
 
 
 
-        return null;
+        return Result.SUCCESS;
     }
 
     /**
@@ -86,12 +90,23 @@ public class UserBLServiceImpl implements UserBLService {
         User newUser = null;
         if (type == UserType.PARENT){
             newUser = new Parent();
+            newUser.setUsername(username);
+            newUser.setRealName(realName);
+            newUser.setPassword(password);
+            newUser = parentDao.save((Parent) newUser);
         } else if (type == UserType.TEACHER){
             newUser = new Teacher();
+            newUser.setUsername(username);
+            newUser.setRealName(realName);
+            newUser.setPassword(password);
+            newUser = teacherDao.save((Teacher)newUser);
         } else if ((type == UserType.STUDENT)) {
             newUser = new Student();
+            newUser.setUsername(username);
+            newUser.setRealName(realName);
+            newUser.setPassword(password);
+            newUser = studentDao.save((Student)newUser);
         }
-
 
 
         return newUser;
