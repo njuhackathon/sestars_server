@@ -62,7 +62,7 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public Assignment updateAssignment(Assignment assignment) {
-        return null;
+        return assignmentDao.save(assignment);
     }
 
     @Override
@@ -95,5 +95,10 @@ public class TeacherBLServiceImpl implements TeacherBLService {
                 })
                 .collect(Collectors.toList());
         return assignmentList;
+    }
+
+    @Override
+    public Assignment getAssignmentById(Long id) {
+        return assignmentDao.findById(id).orElse(null);
     }
 }

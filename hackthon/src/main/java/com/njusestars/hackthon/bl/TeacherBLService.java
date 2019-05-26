@@ -79,4 +79,12 @@ public interface TeacherBLService {
     List<Assignment> getDoneAssignmentList(Teacher teacher);
 
 
+    /**
+     * 获取
+     * @param id
+     * @return
+     */
+    Assignment getAssignmentById(Long id);
+
+
 }
