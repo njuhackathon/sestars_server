@@ -3,10 +3,7 @@ package com.njusestars.hackthon.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Set;
 
 /**
@@ -20,7 +17,7 @@ import java.util.Set;
 @Data
 @Entity(name = "student")
 public class Student extends User {
-    @OneToOne
+    @ManyToOne
     private Classroom classroom;
 
     @ManyToMany
