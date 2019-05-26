@@ -46,14 +46,14 @@ public class TeacherControllerTest {
         userController.signUp(teacherVO);
 
         // 创建班级
-        createClassroomVO = new CreateClassroomVO(LocalDateTime.now().toString(), LocalDateTime.now().toString());
+        createClassroomVO = new CreateClassroomVO(teacherVO.username, LocalDateTime.now().toString());
         teacherController.createClassroom(createClassroomVO);
     }
 
     @Test
     public void createClassroom() {
         // 正常创建
-        CreateClassroomVO vo = new CreateClassroomVO(LocalDateTime.now().toString(), LocalDateTime.now().toString());
+        CreateClassroomVO vo = new CreateClassroomVO(teacherVO.username, LocalDateTime.now().toString());
         ResultMessage resultMessage = teacherController.createClassroom(vo);
         assertTrue(resultMessage.success);
         assertNull(resultMessage.message);
@@ -85,7 +85,7 @@ public class TeacherControllerTest {
         int before = ((List<ClassroomVO>) resultMessage.data).size();
 
         // 创建班级
-        createClassroomVO = new CreateClassroomVO(LocalDateTime.now().toString(), LocalDateTime.now().toString());
+        createClassroomVO = new CreateClassroomVO(teacherVO.username, LocalDateTime.now().toString());
         teacherController.createClassroom(createClassroomVO);
 
         resultMessage = teacherController.getAllClassroom(teacherVO.username);
@@ -103,6 +103,9 @@ public class TeacherControllerTest {
 
     @Test
     public void createAssignment() {
+        List<Classroom> ret = classroomDao.findAll();
+        assertFalse(ret.isEmpty());
+
         // 正常发布作业
         CreateAssigmentVO createAssigmentVO = new CreateAssigmentVO();
         createAssigmentVO.setTitle("test");
@@ -111,6 +114,9 @@ public class TeacherControllerTest {
         List<QuestionVO> questionList = new ArrayList<>();
         questionList.add(new QuestionVO("test", "test.png"));
         createAssigmentVO.setQuestionList(questionList);
+        List<Long> classroomIds = new ArrayList<>();
+        classroomIds.add(ret.get(0).getId());
+        createAssigmentVO.setClassroomIds(classroomIds);
         ResultMessage resultMessage = teacherController.createAssignment(createAssigmentVO);
         assertTrue(resultMessage.success);
         assertNull(resultMessage.message);

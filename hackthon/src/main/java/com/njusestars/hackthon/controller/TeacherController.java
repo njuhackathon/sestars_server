@@ -93,6 +93,11 @@ public class TeacherController {
         assignment.setTitle(createAssigmentVO.getTitle());
         assignment.setTeacher(teacher);
         assignment.setEndDate(createAssigmentVO.getEndTime());
+        Set<Classroom> classroomSet = new HashSet<>();
+        for (Long classroomId : createAssigmentVO.getClassroomIds()) {
+            classroomSet.add(teacherBLService.getClassroomById(classroomId));
+        }
+        assignment.setClassroomSet(classroomSet);
         Set<Question> questionSet = new HashSet<>();
         for (QuestionVO questionVO : createAssigmentVO.getQuestionList()) {
             questionSet.add(new Question(questionVO.getTitle(), questionVO.getImageUrl(), assignment));
