@@ -26,7 +26,7 @@ public class Student extends User {
     @ManyToMany
     private Set<Parent> parents;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "student")
     private Set<Commitment> commitmentSet;
 
 }

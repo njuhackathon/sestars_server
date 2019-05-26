@@ -21,7 +21,7 @@ public class Commitment {
     private String comment;
     private LocalDateTime submitTime;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Student student;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "commitment")
