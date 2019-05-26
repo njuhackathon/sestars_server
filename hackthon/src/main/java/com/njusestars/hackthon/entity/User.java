@@ -2,8 +2,20 @@ package com.njusestars.hackthon.entity;
 
 import lombok.Data;
 
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+
+/**
+ * 用户
+ * <br>
+ * created on 2019/05/26
+ *
+ * @author 巽
+ **/
 @Data
+@MappedSuperclass
 public class User {
+    @Id
     private Long id;
     private String username;
     private String realName;

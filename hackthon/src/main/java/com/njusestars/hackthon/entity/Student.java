@@ -8,6 +8,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import java.util.Set;
 
+/**
+ * 学生
+ * <br>
+ * created on 2019/05/26
+ *
+ * @author 巽
+ **/
 @EqualsAndHashCode(callSuper = true)
 @Data
 @Entity(name = "student")
