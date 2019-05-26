@@ -23,4 +23,13 @@ public class Question {
 
     @ManyToOne
     private Assignment assignment;
+
+    public Question() {
+    }
+
+    public Question(String title, String imagePath, Assignment assignment) {
+        this.title = title;
+        this.imagePath = imagePath;
+        this.assignment = assignment;
+    }
 }
