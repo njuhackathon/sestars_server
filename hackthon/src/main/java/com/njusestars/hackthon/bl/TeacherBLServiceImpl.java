@@ -105,4 +105,9 @@ public class TeacherBLServiceImpl implements TeacherBLService {
         }
         return assignment;
     }
+
+    @Override
+    public List<Classroom> getAllClassroom() {
+        return null;
+    }
 }
