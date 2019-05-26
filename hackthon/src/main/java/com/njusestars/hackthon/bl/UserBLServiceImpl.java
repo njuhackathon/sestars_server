@@ -48,7 +48,7 @@ public class UserBLServiceImpl implements UserBLService {
             //用户不存在
             return Result.NOT_EXIST;
         }
-        if (user.getPassword().equals(password)){
+        if (!user.getPassword().equals(password)){
             //账号密码不对
             return Result.FAILED;
         }

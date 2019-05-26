@@ -50,7 +50,11 @@ public class UserBLServiceImplTest {
         //正确账号，错误密码登录
         assertEquals(Result.FAILED,userBLService.login(username,getRandomString()));
 
-        
+        //错误账号，正确密码
+        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),password));
+
+        //错误账号，错误密码
+        assertEquals(Result.NOT_EXIST,userBLService.login(getRandomString(),getRandomString()));
 
     }
 
