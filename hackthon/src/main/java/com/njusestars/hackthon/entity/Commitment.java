@@ -23,6 +23,7 @@ public class Commitment {
     private String comment;
     private LocalDateTime submitTime;
 
+    @ManyToOne
     private Student student;
 
     @ElementCollection

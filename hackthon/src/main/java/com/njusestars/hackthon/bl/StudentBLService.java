@@ -16,6 +16,14 @@ import java.util.List;
 @Service
 public interface StudentBLService {
 
+
+    /**
+     * 创建新的学生
+     * @param student
+     * @return
+     */
+    Student createStudent(Student student);
+
     /**
      * 学生提交作业
      * @param commitment 对参数有特定要求

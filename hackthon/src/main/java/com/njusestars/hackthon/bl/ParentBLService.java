@@ -1,5 +1,6 @@
 package com.njusestars.hackthon.bl;
 
+import com.njusestars.hackthon.entity.Parent;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public interface ParentBLService {
 
+    Parent createParent(Parent parent);
 
 
 }

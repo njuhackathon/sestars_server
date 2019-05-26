@@ -13,6 +13,15 @@ import java.util.List;
 @Service
 public interface TeacherBLService {
 
+
+    /**
+     * 创建新的老师
+     * @param teacher
+     * @return
+     */
+    Teacher createTeacher(Teacher teacher);
+
+
     /**
      * 根据teacher username返回教师信息
      * @param username

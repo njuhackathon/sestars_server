@@ -91,17 +91,7 @@ public class UserBLServiceImpl implements UserBLService {
         } else if ((type == UserType.STUDENT)) {
             newUser = new Student();
         }
-        newUser.setUsername(username);
-        newUser.setRealName(realName);
-        newUser.setPassword(password);
 
-        if (type == UserType.PARENT){
-            newUser = new Teacher();
-        } else if (type == UserType.TEACHER){
-            newUser = new Teacher();
-        } else if ((type == UserType.STUDENT)) {
-            newUser = new Student();
-        }
 
 
         return newUser;
