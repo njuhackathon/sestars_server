@@ -16,7 +16,6 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class User {
     @Id
-    private Long id;
     private String username;
     private String realName;
     private String password;

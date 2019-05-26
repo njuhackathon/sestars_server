@@ -9,5 +9,7 @@ import org.springframework.stereotype.Repository;
  * @date 2019/5/26 10:11
  */
 @Repository
-public interface ParentDao extends JpaRepository<Parent, Long> {
+public interface ParentDao extends JpaRepository<Parent, String> {
+
+    boolean existsByUsername(String username);
 }
