@@ -98,11 +98,11 @@ public class TeacherController {
             classroomSet.add(teacherBLService.getClassroomById(classroomId));
         }
         assignment.setClassroomSet(classroomSet);
-        Set<Question> questionSet = new HashSet<>();
+        List<Question> questionSet = new ArrayList<>();
         for (QuestionVO questionVO : createAssigmentVO.getQuestionList()) {
             questionSet.add(new Question(questionVO.getTitle(), questionVO.getImageUrl(), assignment));
         }
-        assignment.setQuestionSet(questionSet);
+        assignment.setQuestionList(questionSet);
         assignment = teacherBLService.publishAssignment(assignment);
         if (assignment == null) {
             return new ResultMessage(FAILED, false, null);
@@ -111,4 +111,18 @@ public class TeacherController {
         }
     }
 
+    @GetMapping(value = "/teacher/assignment/all")
+    public ResultMessage getAllAssignment(@RequestParam String teacherUsername) {
+        return null;
+    }
+
+    @GetMapping(value = "/teacher/assignment/")
+    public ResultMessage getAssignment(@RequestParam String teacherUsername, @RequestParam Long assignmentId) {
+        return null;
+    }
+
+    @GetMapping(value = "/teacher/assignment/mark")
+    public ResultMessage getAssignment(@RequestParam Long answerId, @RequestParam Double score) {
+        return null;
+    }
 }

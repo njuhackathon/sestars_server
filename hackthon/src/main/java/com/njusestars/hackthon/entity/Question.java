@@ -23,6 +23,7 @@ public class Question {
     private Long id;
     private String title;
     private String imagePath;
+    private Double score;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     @JsonIgnore

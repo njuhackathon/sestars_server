@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -23,7 +24,7 @@ public class Assignment {
     private Teacher teacher;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,mappedBy = "assignment")
-    private Set<Question> questionSet;
+    private List<Question> questionList;
 
     @ManyToMany
     private Set<Classroom> classroomSet;
