@@ -145,8 +145,10 @@ public class StatisticBLServiceImpl implements StatisticBLService {
     public Integer getToDoStuNumByQuestion(Long questionId) {
         Question question = questionDao.findById(questionId).orElse(null);
         Assignment assignment = question.getAssignment();
-        //TODO
-        return 0;
+
+        Integer total = this.getTotalStuNumByAssign(assignment.getId());
+        Integer todo = total - this.getDoneStuNumByQuestion(questionId);
+        return todo;
     }
 
     @Override
@@ -164,9 +166,6 @@ public class StatisticBLServiceImpl implements StatisticBLService {
         }
         return num;
     }
-
-
-
 
     @Override
     public Map<String, Double> getTotalScore(Long assignmentId) {
@@ -205,7 +204,7 @@ public class StatisticBLServiceImpl implements StatisticBLService {
     }
 
     @Override
-    public Integer getToDoStuNum(Long assignId) {
+    public Integer getTotalStuNumByAssign(Long assignId) {
         Assignment assignment = assignmentDao.findById(assignId).orElse(null);
         if (assignment == null) {
             System.err.println("getToDoStuNum() assign not exists");
@@ -226,9 +225,13 @@ public class StatisticBLServiceImpl implements StatisticBLService {
             }
             sum += studentSet.size();
         }
+        return sum;
+    }
 
+    @Override
+    public Integer getToDoStuNum(Long assignId) {
+        Integer sum = this.getTotalStuNumByAssign(assignId);
         Integer todo = sum - this.getDoneStuNum(assignId);
-
         return todo;
     }
 
