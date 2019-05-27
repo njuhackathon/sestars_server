@@ -194,6 +194,11 @@ public class TeacherBLServiceImpl implements TeacherBLService {
         }
         answer.setScore(score);
         Answer resultAns = answerDao.save(answer);
+
+        //更新commitment
+        Commitment commitment = resultAns.getCommitment();
+
+
         return resultAns;
     }
 
