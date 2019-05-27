@@ -28,11 +28,21 @@ public interface StudentBLService {
 
 
     /**
-     * 学生查看未完成作业列表
+     * 学生查看未提交的作业列表
      * @param student 对参数有假设
      * @return
      */
     List<Assignment> getToDoAssignmentList(@NotNull Student student);
+
+
+    List<Assignment> getCheckedAssign(@NotNull String stuName);
+
+    /**
+     * 学生查看未截止的作业列表
+     * @param stuName
+     * @return
+     */
+    List<Assignment> getUnfinishedAssign(@NotNull String stuName);
 
 
     /**

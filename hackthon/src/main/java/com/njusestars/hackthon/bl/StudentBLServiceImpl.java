@@ -3,9 +3,12 @@ package com.njusestars.hackthon.bl;
 import com.njusestars.hackthon.dao.*;
 import com.njusestars.hackthon.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.expression.spel.ast.Assign;
 import org.springframework.stereotype.Service;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +33,9 @@ public class StudentBLServiceImpl implements StudentBLService {
 
     @Autowired
     private AnswerDao answerDao;
+
+    @Autowired
+    private AssignmentDao assignmentDao;
 
     @Override
     public Commitment commitAssignment(Commitment commitment) {
@@ -61,6 +67,37 @@ public class StudentBLServiceImpl implements StudentBLService {
     public List<Assignment> getToDoAssignmentList(Student student) {
         //参数检查
         //查询列表并过滤
+        Classroom classroom = student.getClassroom();
+        List<Assignment> unfinishedAssign = this.getUnfinishedAssign(student.getUsername());
+        List<Assignment> toDoAssignList = new ArrayList<>(unfinishedAssign.size());
+        for (Assignment eachAssign : unfinishedAssign) {
+            if (!hasSubmit(eachAssign.getId(),student.getUsername())){
+                toDoAssignList.add(eachAssign);
+            }
+        }
+        return toDoAssignList;
+    }
+
+    @Override
+    public List<Assignment> getCheckedAssign(@NotNull String stuName) {
+        
+        return null;
+    }
+
+    private boolean hasSubmit(Long assignId, String stuName){
+        Student student = studentDao.findById(stuName).orElse(null);
+        for (Commitment eachCommit : student.getCommitmentSet()) {
+            if (assignId.equals(eachCommit.getAssignment().getId())){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    @Override
+    public List<Assignment> getUnfinishedAssign(@NotNull String stuName) {
+        Student student = studentDao.findById(stuName).orElse(null);
         Classroom classroom = student.getClassroom();
         List<Assignment> assignmentList = classroom.getAssignmentSet()
                 .parallelStream()
