@@ -71,7 +71,7 @@ public interface TeacherBLService {
      * @param teacher 对参数有假设，具有id
      * @return assignment list 按发布时间由近到远排序
      */
-    List<Assignment> getToDoAssignmentList(Teacher teacher);
+    List<Assignment> getUnfinishedAssignList(Teacher teacher);
 
 
     /**
@@ -79,7 +79,7 @@ public interface TeacherBLService {
      * @param teacher 对参数有假设，具有id
      * @return assignment list 按发布时间由近到远排序
      */
-    List<Assignment> getDoneAssignmentList(Teacher teacher);
+    List<Assignment> getFinishedAssignList(Teacher teacher);
 
 
     /**

@@ -83,7 +83,7 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     }
 
     @Override
-    public List<Assignment> getToDoAssignmentList(Teacher teacher) {
+    public List<Assignment> getUnfinishedAssignList(Teacher teacher) {
         Teacher realTeacher = teacherDao.findById(teacher.getUsername()).orElse(null);
         if (realTeacher == null) {
             System.err.println("todoAssignmentList() 这里传入的teacher为null");
@@ -101,7 +101,7 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     }
 
     @Override
-    public List<Assignment> getDoneAssignmentList(Teacher teacher) {
+    public List<Assignment> getFinishedAssignList(Teacher teacher) {
         Teacher realTeacher = getTeacherByUsername(teacher.getUsername());
         Set<Assignment> assignmentSet = realTeacher.getAssignmentSet();
         List<Assignment> assignmentList = assignmentSet.parallelStream()

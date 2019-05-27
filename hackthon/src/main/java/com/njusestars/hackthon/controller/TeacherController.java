@@ -111,8 +111,8 @@ public class TeacherController {
     @GetMapping(value = "/teacher/assignment/all")
     public ResultMessage getAllAssignment(@RequestParam String teacherUsername) {
         Teacher teacher = teacherBLService.getTeacherByUsername(teacherUsername);
-        List<Assignment> assignmentList = teacherBLService.getToDoAssignmentList(teacher);
-        assignmentList.addAll(teacherBLService.getDoneAssignmentList(teacher));
+        List<Assignment> assignmentList = teacherBLService.getUnfinishedAssignList(teacher);
+        assignmentList.addAll(teacherBLService.getFinishedAssignList(teacher));
         List<AssignmentVO> assignmentVOS = new ArrayList<>();
         for (Assignment assignment : assignmentList) {
             assignmentVOS.add(new AssignmentVO(assignment.getId(), assignment.getTitle()));

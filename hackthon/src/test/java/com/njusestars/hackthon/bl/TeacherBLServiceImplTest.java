@@ -134,7 +134,7 @@ public class TeacherBLServiceImplTest {
     @Test
     public void getToDoAssignmentListEasy() {
         Teacher teacher = this.getRandomTeacher();
-        List<Assignment> assignmentList = teacherBLService.getToDoAssignmentList(teacher);
+        List<Assignment> assignmentList = teacherBLService.getUnfinishedAssignList(teacher);
         assertTrue(assignmentList.size()==0);
     }
 
@@ -143,7 +143,7 @@ public class TeacherBLServiceImplTest {
         Assignment assignment = MockUtil.getRandomAssignment();
         assignment.setTeacher(this.getRandomTeacher());
         assignment = teacherBLService.publishAssignment(assignment);
-        List<Assignment> assignmentList = teacherBLService.getToDoAssignmentList(assignment.getTeacher());
+        List<Assignment> assignmentList = teacherBLService.getUnfinishedAssignList(assignment.getTeacher());
         assertTrue(assignmentList.size()==1);
 //        assertTrue(assignmentList.contains(assignment));
     }
@@ -161,7 +161,7 @@ public class TeacherBLServiceImplTest {
         assignDone2.setEndDate(LocalDateTime.now());
         assignDone2 = teacherBLService.updateAssignment(assignDone2);
 
-        List<Assignment> assignmentList = teacherBLService.getDoneAssignmentList(teacher);
+        List<Assignment> assignmentList = teacherBLService.getFinishedAssignList(teacher);
         assertTrue(2==assignmentList.size());
 
     }
