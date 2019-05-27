@@ -13,7 +13,7 @@ import java.util.List;
  * @author Xunner
  **/
 @Data
-public class AssignTeaStaVO {
+public class AssignStaVO {
     Long assignmentId;
     String title;
     LocalDateTime endTime;
@@ -21,12 +21,14 @@ public class AssignTeaStaVO {
     Double average;
     Double max;
     Double min;
-    List<QuesTeaStaVO> questions;
+    Integer rank;
+    List<QuesStaVO> questions;
 
-    public AssignTeaStaVO() {
+    public AssignStaVO() {
     }
 
-    public AssignTeaStaVO(Long assignmentId, String title, LocalDateTime endTime, Integer commitCount, Double average, Double max, Double min, List<QuesTeaStaVO> questions) {
+    public AssignStaVO(Long assignmentId, String title, LocalDateTime endTime, Integer commitCount, Double average,
+                       Double max, Double min, Integer rank, List<QuesStaVO> questions) {
         this.assignmentId = assignmentId;
         this.title = title;
         this.endTime = endTime;
