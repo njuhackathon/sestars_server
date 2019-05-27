@@ -80,8 +80,16 @@ public class StudentBLServiceImpl implements StudentBLService {
 
     @Override
     public List<Assignment> getCheckedAssign(@NotNull String stuName) {
-        
-        return null;
+        Student student = studentDao.findById(stuName).orElse(null);
+        List<Assignment> assignmentList = new ArrayList<>();
+        for (Commitment eachCommit : student.getCommitmentSet()) {
+            for (Answer eAns : eachCommit.getAnswerSet()) {
+                if (eAns.isChecked()){
+                    assignmentList.add(eachCommit.getAssignment());
+                }
+            }
+        }
+        return assignmentList;
     }
 
     private boolean hasSubmit(Long assignId, String stuName){

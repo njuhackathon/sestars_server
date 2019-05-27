@@ -42,6 +42,14 @@ public class Answer {
         return (text != null && !text.isEmpty()) || (imagePaths != null && !imagePaths.isEmpty());
     }
 
+    /**
+     * 是否被批改
+     * @return
+     */
+    public boolean isChecked(){
+        return this.score!=null;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
