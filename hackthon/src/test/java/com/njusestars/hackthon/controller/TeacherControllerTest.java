@@ -159,7 +159,28 @@ public class TeacherControllerTest {
         assertTrue(resultMessage.success);
         assertNull(resultMessage.message);
         assertTrue(resultMessage.data instanceof List);
-//        List<AssignmentVO> list =
+        List<AssignmentVO> list = (List<AssignmentVO>) resultMessage.data;
+        assertTrue(list.isEmpty());
+
+        List<Classroom> ret = classroomDao.findAll();
+        assertFalse(ret.isEmpty());
+        // 正常发布作业
+        CreateAssigmentVO createAssigmentVO = new CreateAssigmentVO();
+        createAssigmentVO.setTitle("test");
+        createAssigmentVO.setEndTime(LocalDateTime.now());
+        createAssigmentVO.setTeacherUsername(teacherVO.username);
+        List<QuestionVO> questionList = new ArrayList<>();
+        questionList.add(new QuestionVO("test", "test.png", 0.0));
+        createAssigmentVO.setQuestionList(questionList);
+        List<Long> classroomIds = new ArrayList<>();
+        classroomIds.add(ret.get(0).getId());
+        createAssigmentVO.setClassroomIds(classroomIds);
+
+        teacherController.createAssignment(createAssigmentVO);
+
+        resultMessage = teacherController.getAllAssignment(teacherVO.username);
+
+
     }
 
     @Test

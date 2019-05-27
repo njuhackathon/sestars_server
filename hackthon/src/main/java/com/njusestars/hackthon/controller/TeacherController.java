@@ -97,7 +97,7 @@ public class TeacherController {
         assignment.setClassroomSet(classroomSet);
         List<Question> questionSet = new ArrayList<>();
         for (QuestionVO questionVO : createAssigmentVO.getQuestionList()) {
-            questionSet.add(new Question(questionVO.getTitle(), questionVO.getImageUrl(), assignment));
+            questionSet.add(new Question(questionVO.getTitle(), questionVO.getImageUrl(), assignment, questionVO.getScore()));
         }
         assignment.setQuestionList(questionSet);
         assignment = teacherBLService.publishAssignment(assignment);
@@ -133,8 +133,10 @@ public class TeacherController {
                 if (list == null) {
                     list = new ArrayList<>();
                 }
-                list.add(this.toAnswerVO(answer));
-                questionListMap.put(question, list);
+                if (answer.getScore() == null) {
+                    list.add(this.toAnswerVO(answer));
+                    questionListMap.put(question, list);
+                }
             }
         }
         Map<QuestionVO, List<AnswerVO>> questionAnswers = new HashMap<>();
