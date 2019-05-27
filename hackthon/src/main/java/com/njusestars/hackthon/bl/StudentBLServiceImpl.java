@@ -39,7 +39,13 @@ public class StudentBLServiceImpl implements StudentBLService {
             System.err.println("commitAssignment() commitment is null");
             return null;
         }
-        commitmentDao.deleteByStudentUsername(commitment.getStudent().getUsername());
+        Long assignId = commitment.getAssignment().getId();
+        String stuName = commitment.getStudent().getUsername();
+        if (assignId == null || stuName == null) {
+            System.err.println("commitAssign(): assignId or stuName is null");
+            return null;
+        }
+        
         Commitment newCommit = commitmentDao.save(commitment);
         return newCommit;
     }
