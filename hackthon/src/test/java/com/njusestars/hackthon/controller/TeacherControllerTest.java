@@ -2,9 +2,7 @@ package com.njusestars.hackthon.controller;
 
 import com.njusestars.hackthon.dao.ClassroomDao;
 import com.njusestars.hackthon.dao.TeacherDao;
-import com.njusestars.hackthon.entity.Assignment;
-import com.njusestars.hackthon.entity.Classroom;
-import com.njusestars.hackthon.entity.Teacher;
+import com.njusestars.hackthon.entity.*;
 import com.njusestars.hackthon.util.MockUtilService;
 import com.njusestars.hackthon.util.ResultMessage;
 import com.njusestars.hackthon.vo.*;
@@ -229,7 +227,11 @@ public class TeacherControllerTest {
         assertTrue(resultMessage.success);
         assertNull(resultMessage.message);
         assertTrue(resultMessage.data instanceof AssignmentMarkingVO);
-//        AssignmentMarkingVO assignmentMarkingVO = (AssignmentMarkingVO)
+
+        Student student = mockUtilService.getRandomStudent();
+        Commitment commitment = mockUtilService.getRandomCommitment(student, assignment);
+
+        AssignmentMarkingVO assignmentMarkingVO = (AssignmentMarkingVO) resultMessage.data;
     }
 
     @Test
