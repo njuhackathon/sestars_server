@@ -19,7 +19,7 @@ public class AssignmentMarkingVO {
     String title;
     LocalDateTime endDate;
     String teacherUsername;
-    Map<QuestionVO, List<AnswerVO>> questionAnswers;
+    List<QuestionAnswersVO> questionAnswers;
 
     public AssignmentMarkingVO() {
     }
