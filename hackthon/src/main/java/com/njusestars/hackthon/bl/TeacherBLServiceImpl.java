@@ -4,10 +4,7 @@ import com.njusestars.hackthon.dao.AnswerDao;
 import com.njusestars.hackthon.dao.AssignmentDao;
 import com.njusestars.hackthon.dao.ClassroomDao;
 import com.njusestars.hackthon.dao.TeacherDao;
-import com.njusestars.hackthon.entity.Answer;
-import com.njusestars.hackthon.entity.Assignment;
-import com.njusestars.hackthon.entity.Classroom;
-import com.njusestars.hackthon.entity.Teacher;
+import com.njusestars.hackthon.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -116,14 +113,43 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Override
     public List<Assignment> getCheckedAssignList(Teacher teacher) {
-        //TODO
-        return null;
+        List<Assignment> assignmentList = this.getFinishedAssignList(teacher);
+        List<Assignment> checkedList = assignmentList.stream()
+                .filter(assignment -> ifChecked(assignment))
+                .collect(Collectors.toList());
+        return checkedList;
+    }
+
+    private boolean ifChecked(Assignment assignment){
+        //判断所有的answer是否都有分数
+        Set<Commitment> commitmentSet = assignment.getCommitments();
+        if (commitmentSet == null || commitmentSet.size()==0) {
+            //还没有提交
+            return false;
+        }
+        for (Commitment each : commitmentSet) {
+            Set<Answer> answerSet = each.getAnswerSet();
+            if (answerSet == null) {
+                //有commitment但没有answer的情况
+                return false;
+            }
+            for (Answer eachAns : answerSet) {
+                if (eachAns.getScore()==null){
+                    //假设未批改完的answer.score是null
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
     public List<Assignment> getUncheckedAssignList(Teacher teacher) {
-        //TODO
-        return null;
+        List<Assignment> assignmentList = this.getFinishedAssignList(teacher);
+        List<Assignment> uncheckedList = assignmentList.stream()
+                .filter(assignment -> !ifChecked(assignment))
+                .collect(Collectors.toList());
+        return uncheckedList;
     }
 
     @Override
