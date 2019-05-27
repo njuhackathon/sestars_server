@@ -141,7 +141,7 @@ public class TeacherControllerTest {
         createAssigmentVO.setEndTime(LocalDateTime.now());
         createAssigmentVO.setTeacherUsername(teacherVO.username);
         List<QuestionVO> questionList = new ArrayList<>();
-        questionList.add(new QuestionVO("test", "test.png"));
+        questionList.add(new QuestionVO("test", "test.png", 0.0));
         createAssigmentVO.setQuestionList(questionList);
         List<Long> classroomIds = new ArrayList<>();
         classroomIds.add(ret.get(0).getId());
@@ -151,5 +151,22 @@ public class TeacherControllerTest {
         assertNull(resultMessage.message);
         assertNull(resultMessage.data);
 
+    }
+
+    @Test
+    public void getAllAssignment() {
+        ResultMessage resultMessage = teacherController.getAllAssignment(teacherVO.username);
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertTrue(resultMessage.data instanceof List);
+//        List<AssignmentVO> list =
+    }
+
+    @Test
+    public void getAssignment() {
+    }
+
+    @Test
+    public void markAnswer() {
     }
 }
