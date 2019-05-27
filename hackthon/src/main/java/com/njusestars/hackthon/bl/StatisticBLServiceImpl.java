@@ -112,6 +112,16 @@ public class StatisticBLServiceImpl implements StatisticBLService {
     }
 
     @Override
+    public Integer getToDoStuNumByQuestion(Long questionId) {
+        return null;
+    }
+
+    @Override
+    public Integer getDoneStuNumByQuestion(Long questionId) {
+        return null;
+    }
+
+    @Override
     public Map<String, Double> getTotalScore(Long assignmentId) {
         Assignment assignment = assignmentDao.findById(assignmentId).orElse(null);
         if (assignment == null) {

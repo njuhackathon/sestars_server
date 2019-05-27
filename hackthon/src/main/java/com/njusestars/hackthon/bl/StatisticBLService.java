@@ -109,5 +109,18 @@ public interface StatisticBLService {
     Double getAverScoreByQuestion(Long questionId);
 
 
+    /**
+     * 问题还未作答的人数
+     * @param questionId
+     * @return
+     */
+    Integer getToDoStuNumByQuestion(Long questionId);
+
+    /**
+     * 问题已经作答的人数
+     * @param questionId
+     * @return
+     */
+    Integer getDoneStuNumByQuestion(Long questionId);
 
 }
