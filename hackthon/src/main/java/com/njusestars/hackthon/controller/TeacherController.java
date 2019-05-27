@@ -89,7 +89,7 @@ public class TeacherController {
         Assignment assignment = new Assignment();
         assignment.setTitle(createAssigmentVO.getTitle());
         assignment.setTeacher(teacher);
-        assignment.setEndDate(createAssigmentVO.getEndTime());
+        assignment.setEndDate(createAssigmentVO.getEndTime().plusHours(8)); // 暂时解决时区问题
         Set<Classroom> classroomSet = new HashSet<>();
         for (Long classroomId : createAssigmentVO.getClassroomIds()) {
             classroomSet.add(teacherBLService.getClassroomById(classroomId));
