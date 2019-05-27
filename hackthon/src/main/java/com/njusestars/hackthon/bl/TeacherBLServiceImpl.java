@@ -115,6 +115,18 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     }
 
     @Override
+    public List<Assignment> getCheckedAssignList(Teacher teacher) {
+        //TODO
+        return null;
+    }
+
+    @Override
+    public List<Assignment> getUncheckedAssignList(Teacher teacher) {
+        //TODO
+        return null;
+    }
+
+    @Override
     public Assignment getAssignmentById(Long id) {
         Assignment assignment = assignmentDao.findById(id).orElse(null);
         if (assignment == null) {

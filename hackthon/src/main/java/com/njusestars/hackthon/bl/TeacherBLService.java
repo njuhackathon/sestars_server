@@ -83,6 +83,17 @@ public interface TeacherBLService {
 
 
     /**
+     * 得到已经批改完成的作业
+     * @param teacher
+     * @return
+     */
+    List<Assignment> getCheckedAssignList(Teacher teacher);
+
+
+    List<Assignment> getUncheckedAssignList(Teacher teacher);
+
+
+    /**
      * 获取assignment
      * @param id
      * @return
@@ -126,6 +137,7 @@ public interface TeacherBLService {
      * @return
      */
     Answer getAnswerById(Long answerId);
+
 
 
 
