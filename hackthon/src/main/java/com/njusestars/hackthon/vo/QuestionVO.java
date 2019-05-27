@@ -14,19 +14,22 @@ public class QuestionVO {
     Long id;
     String title;
     String imageUrl;
+    Double score;
 
     public QuestionVO() {
     }
 
-    public QuestionVO(String title, String imageUrl) {
+    public QuestionVO(String title, String imageUrl, Double score) {
         this.title = title;
         this.imageUrl = imageUrl;
+        this.score = score;
     }
 
-    public QuestionVO(Long id, String title, String imageUrl) {
+    public QuestionVO(Long id, String title, String imageUrl, Double score) {
         this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;
+        this.score = score;
     }
 }
 

@@ -140,7 +140,7 @@ public class TeacherController {
         Map<QuestionVO, List<AnswerVO>> questionAnswers = new HashMap<>();
         for (Map.Entry<Question, List<AnswerVO>> entry : questionListMap.entrySet()) {
             Question question = entry.getKey();
-            QuestionVO questionVO = new QuestionVO(question.getId(), question.getTitle(), question.getImagePath());
+            QuestionVO questionVO = new QuestionVO(question.getId(), question.getTitle(), question.getImagePath(), question.getScore());
             questionAnswers.put(questionVO, entry.getValue());
         }
         assignmentVO.setQuestionAnswers(questionAnswers);

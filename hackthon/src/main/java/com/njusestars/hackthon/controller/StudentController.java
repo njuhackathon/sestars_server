@@ -121,7 +121,7 @@ public class StudentController {
         if (assignment == null) return null;
         List<QuestionVO> questionList = new ArrayList<>();
         for (Question question : assignment.getQuestionList()) {
-            questionList.add(new QuestionVO(question.getId(),question.getTitle(), question.getImagePath()));
+            questionList.add(new QuestionVO(question.getId(),question.getTitle(), question.getImagePath(), question.getScore()));
         }
         return new AssignmentVO(assignment.getId(), assignment.getTitle(), assignment.getEndDate(), assignment.getTeacher().getUsername(), questionList);
     }
