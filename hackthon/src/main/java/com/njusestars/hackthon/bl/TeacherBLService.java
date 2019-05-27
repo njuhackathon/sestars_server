@@ -120,5 +120,14 @@ public interface TeacherBLService {
     Answer checkAnswer(Long answerId, Double score);
 
 
+    /**
+     * 根据id拿到ans
+     * @param answerId
+     * @return
+     */
+    Answer getAnswerById(Long answerId);
+
+
+
 
 }

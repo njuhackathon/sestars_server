@@ -158,4 +158,14 @@ public class TeacherBLServiceImpl implements TeacherBLService {
         Answer resultAns = answerDao.save(answer);
         return resultAns;
     }
+
+    @Override
+    public Answer getAnswerById(Long answerId) {
+        if (answerId == null) {
+            System.err.println("getAnswerById() :answer id is null");
+            return null;
+        }
+        Answer answer = answerDao.findById(answerId).orElse(null);
+        return answer;
+    }
 }
