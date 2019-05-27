@@ -108,8 +108,32 @@ public class TeacherController {
         }
     }
 
-    @GetMapping(value = "/teacher/assignment/all")
-    public ResultMessage getAllAssignment(@RequestParam String teacherUsername) {
+    @GetMapping(value = "/teacher/assignment/pending")
+    public ResultMessage getAssignmentPending(@RequestParam String teacherUsername) {
+        Teacher teacher = teacherBLService.getTeacherByUsername(teacherUsername);
+        List<Assignment> assignmentList = teacherBLService.getUnfinishedAssignList(teacher);
+        assignmentList.addAll(teacherBLService.getFinishedAssignList(teacher));
+        List<AssignmentVO> assignmentVOS = new ArrayList<>();
+        for (Assignment assignment : assignmentList) {
+            assignmentVOS.add(new AssignmentVO(assignment.getId(), assignment.getTitle()));
+        }
+        return new ResultMessage(null, true, assignmentVOS);
+    }
+
+    @GetMapping(value = "/teacher/assignment/todo")
+    public ResultMessage getAssignmentTodo(@RequestParam String teacherUsername) {
+        Teacher teacher = teacherBLService.getTeacherByUsername(teacherUsername);
+        List<Assignment> assignmentList = teacherBLService.getUnfinishedAssignList(teacher);
+        assignmentList.addAll(teacherBLService.getFinishedAssignList(teacher));
+        List<AssignmentVO> assignmentVOS = new ArrayList<>();
+        for (Assignment assignment : assignmentList) {
+            assignmentVOS.add(new AssignmentVO(assignment.getId(), assignment.getTitle()));
+        }
+        return new ResultMessage(null, true, assignmentVOS);
+    }
+
+    @GetMapping(value = "/teacher/assignment/done")
+    public ResultMessage getAssignmentDone(@RequestParam String teacherUsername) {
         Teacher teacher = teacherBLService.getTeacherByUsername(teacherUsername);
         List<Assignment> assignmentList = teacherBLService.getUnfinishedAssignList(teacher);
         assignmentList.addAll(teacherBLService.getFinishedAssignList(teacher));

@@ -74,6 +74,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @Ignore
     public void submitCommitment() {
         CommitmentVO commitmentVO = new CommitmentVO();
         ResultMessage resultMessage = studentController.submitCommitment(commitmentVO);
@@ -85,6 +86,7 @@ public class StudentControllerTest {
     }
 
     @Test
+    @Ignore
     public void getMyClassroom() {
         ResultMessage resultMessage = studentController.getMyClassroom("");
     }
