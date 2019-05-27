@@ -44,6 +44,16 @@ public class StudentController {
         return new ResultMessage(null, true, assignmentVOS);
     }
 
+    @GetMapping(value = "/student/assignment/marked")
+    public ResultMessage getAllAssignmentMarked(@RequestParam String studentUsername) {
+        Student student = studentBLService.getStudentByUsername(studentUsername);
+        List<AssignmentVO> assignmentVOS = new ArrayList<>();
+        for (Assignment assignment : studentBLService.getCheckedAssign(student.getUsername())) {
+            assignmentVOS.add(this.toAssignmentVO(assignment));
+        }
+        return new ResultMessage(null, true, assignmentVOS);
+    }
+
     @GetMapping(value = "/student/assignment/")
     public ResultMessage getAssignment(@RequestParam Long assignmentId) {
         AssignmentVO assignmentVO = this.toAssignmentVO(teacherBLService.getAssignmentById(assignmentId));

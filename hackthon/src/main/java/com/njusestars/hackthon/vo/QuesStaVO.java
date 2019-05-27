@@ -19,11 +19,13 @@ public class QuesStaVO {
     Double average;
     Double max;
     Double min;
+    String imageUrl;
 
     public QuesStaVO() {
     }
 
-    public QuesStaVO(Long questionId, String title, Double score, Integer commitCount, Integer notCommitCount, Double average, Double max, Double min) {
+    public QuesStaVO(Long questionId, String title, Double score, Integer commitCount, Integer notCommitCount,
+                     Double average, Double max, Double min, String imageUrl) {
         this.questionId = questionId;
         this.title = title;
         this.score = score;
@@ -32,5 +34,6 @@ public class QuesStaVO {
         this.average = average;
         this.max = max;
         this.min = min;
+        this.imageUrl = imageUrl;
     }
 }

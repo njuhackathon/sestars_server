@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
@@ -75,6 +77,10 @@ public class MockUtilService {
         assignment.setTitle(getRandomString());
         assignment.setBeginDate(LocalDateTime.now());
         assignment.setEndDate(LocalDateTime.of(2021, Month.APRIL,9,14,0));
+
+        List<Question> questionList = new ArrayList<>();
+        questionList.add(new Question("Test Question", null, assignment, 5.0));
+        assignment.setQuestionList(questionList);
 
         Teacher teacher = this.getRandomTeacher();
         assignment.setTeacher(teacher);

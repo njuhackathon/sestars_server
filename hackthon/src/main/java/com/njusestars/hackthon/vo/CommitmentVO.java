@@ -16,4 +16,13 @@ public class CommitmentVO {
     String studentUsername;
     Long assignmentId;
     List<AnswerVO> answerList;
+
+    public CommitmentVO() {
+    }
+
+    public CommitmentVO(String studentUsername, Long assignmentId, List<AnswerVO> answerList) {
+        this.studentUsername = studentUsername;
+        this.assignmentId = assignmentId;
+        this.answerList = answerList;
+    }
 }

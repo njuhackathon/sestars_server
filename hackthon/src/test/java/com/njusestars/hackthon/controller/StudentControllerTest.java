@@ -2,12 +2,12 @@ package com.njusestars.hackthon.controller;
 
 import com.njusestars.hackthon.dao.ClassroomDao;
 import com.njusestars.hackthon.dao.StudentDao;
-import com.njusestars.hackthon.entity.Assignment;
-import com.njusestars.hackthon.entity.Classroom;
-import com.njusestars.hackthon.entity.Student;
+import com.njusestars.hackthon.entity.*;
 import com.njusestars.hackthon.util.MockUtilService;
 import com.njusestars.hackthon.util.ResultMessage;
+import com.njusestars.hackthon.vo.AnswerVO;
 import com.njusestars.hackthon.vo.AssignmentVO;
+import com.njusestars.hackthon.vo.ClassroomVO;
 import com.njusestars.hackthon.vo.CommitmentVO;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -59,43 +60,66 @@ public class StudentControllerTest {
     }
 
     @Test
-    @Ignore
     public void getAllAssignment() {
         ResultMessage resultMessage = studentController.getAllAssignment(student.getUsername());
         assertTrue(resultMessage.success);
         assertTrue(resultMessage.data instanceof List);
         List<AssignmentVO> assignmentVOS = ((List<AssignmentVO>) resultMessage.data);
         assertTrue(assignmentVOS.isEmpty());
-
-
-        Assignment assignment = new Assignment();
-
     }
 
     @Test
     public void getAssignment() {
-        ResultMessage resultMessage = studentController.getAssignment(1L);
+        Assignment assignment = mockUtilService.getRandomAssignment();
+        ResultMessage resultMessage = studentController.getAssignment(assignment.getId());
+        assertTrue(resultMessage.success);
+        assertTrue(resultMessage.data instanceof AssignmentVO);
+        AssignmentVO assignmentVOS = ((AssignmentVO) resultMessage.data);
+        assertNotNull(assignmentVOS);
     }
 
     @Test
+    @Ignore
     public void submitCommitment() {
-//        CommitmentVO commitmentVO = new CommitmentVO();
+//        Assignment assignment = mockUtilService.getRandomAssignment();
+//        Commitment commitment = mockUtilService.getRandomCommitment(student, assignment);
+//        List<AnswerVO> answerList = new ArrayList<>();
+//        for (Answer answer : commitment.getAnswerSet()) {
+////            answerList.add(new AnswerVO(null, ));
+//        }
+//        CommitmentVO commitmentVO = new CommitmentVO(student.getUsername(), assignment.getId(), commitment.getAnswerSet());
 //        ResultMessage resultMessage = studentController.submitCommitment(commitmentVO);
+//        assertTrue(resultMessage.success);
+//        assertNull(resultMessage.message);
+//        assertNull(resultMessage.data);
     }
 
     @Test
     public void getClassroomNotJoin() {
-        ResultMessage resultMessage = studentController.getClassroomNotJoin("");
+        mockUtilService.getRandomClassroom();
+        ResultMessage resultMessage = studentController.getClassroomNotJoin(student.getUsername());
+        assertTrue(resultMessage.success);
+        assertTrue(resultMessage.data instanceof List);
+        List<ClassroomVO> classroomVOS = ((List<ClassroomVO>) resultMessage.data);
+        assertFalse(classroomVOS.isEmpty());
     }
 
     @Test
     public void getMyClassroom() {
-
-//        ResultMessage resultMessage = studentController.getMyClassroom("");
+        ResultMessage resultMessage = studentController.getMyClassroom(student.getUsername());
+        assertTrue(resultMessage.success);
+        assertTrue(resultMessage.data instanceof ClassroomVO);
+        ClassroomVO classroomVO = (ClassroomVO) resultMessage.data;
+        assertEquals(student.getClassroom().getId(), classroomVO.getId());
     }
 
     @Test
     public void joinClassroom() {
-        ResultMessage resultMessage = studentController.joinClassroom(student.getUsername(), 1L);
+        Long id = student.getClassroom().getId();
+        Classroom classroom = mockUtilService.getRandomClassroom();
+        ResultMessage resultMessage = studentController.joinClassroom(student.getUsername(), classroom.getId());
+        assertTrue(resultMessage.success);
+        assertTrue(resultMessage.data instanceof Long);
+        assertNotEquals((Long) resultMessage.data, id);
     }
 }

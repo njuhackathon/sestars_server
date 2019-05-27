@@ -61,7 +61,7 @@ public class StatisticsController {
             ret.add(new QuesStaVO(question.getId(), question.getTitle(), question.getScore(),
                     statisticBLService.getDoneStuNumByQuestion(questionId), statisticBLService.getToDoStuNumByQuestion(questionId),
                     statisticBLService.getAverScoreByQuestion(questionId), statisticBLService.getHighestScoreByQuestion(questionId),
-                    statisticBLService.getLowestScoreByQuestion(questionId)));
+                    statisticBLService.getLowestScoreByQuestion(questionId), question.getImagePath()));
         }
         return ret;
     }
