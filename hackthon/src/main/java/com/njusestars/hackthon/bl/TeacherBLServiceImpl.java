@@ -1,8 +1,10 @@
 package com.njusestars.hackthon.bl;
 
+import com.njusestars.hackthon.dao.AnswerDao;
 import com.njusestars.hackthon.dao.AssignmentDao;
 import com.njusestars.hackthon.dao.ClassroomDao;
 import com.njusestars.hackthon.dao.TeacherDao;
+import com.njusestars.hackthon.entity.Answer;
 import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Classroom;
 import com.njusestars.hackthon.entity.Teacher;
@@ -30,6 +32,9 @@ public class TeacherBLServiceImpl implements TeacherBLService {
 
     @Autowired
     private AssignmentDao assignmentDao;
+
+    @Autowired
+    private AnswerDao answerDao;
 
 
     @Override
@@ -136,5 +141,21 @@ public class TeacherBLServiceImpl implements TeacherBLService {
     @Override
     public List<Teacher> getAllTeacherList() {
         return teacherDao.findAll();
+    }
+
+    @Override
+    public Answer checkAnswer(Long answerId, Double score) {
+        if (answerId == null || score==null || score < 0 || !answerDao.existsById(answerId)) {
+            System.err.println("the input params are bad !");
+            return null;
+        }
+        Answer answer = answerDao.findById(answerId).orElse(null);
+        if (answer == null) {
+            System.err.println("cannot get answer when checkAnswer()");
+            return null;
+        }
+        answer.setScore(score);
+        Answer resultAns = answerDao.save(answer);
+        return resultAns;
     }
 }

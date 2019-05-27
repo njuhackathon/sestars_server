@@ -45,5 +45,12 @@ public interface StatisticBLService {
     Map<String,Double> getTotalScore(Long assignmentId);
 
 
+    /**
+     * 得到得分列表
+     * @param assignmentId
+     * @return
+     */
+    List<Double> getScoreList(Long assignmentId);
+
 
 }

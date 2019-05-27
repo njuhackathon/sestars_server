@@ -1,5 +1,6 @@
 package com.njusestars.hackthon.bl;
 
+import com.njusestars.hackthon.entity.Answer;
 import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Classroom;
 import com.njusestars.hackthon.entity.Teacher;
@@ -109,6 +110,14 @@ public interface TeacherBLService {
      */
     List<Teacher> getAllTeacherList();
 
+
+    /**
+     * 批改答案，修改数据库
+     * @param answerId
+     * @param score
+     * @return
+     */
+    Answer checkAnswer(Long answerId, Double score);
 
 
 
