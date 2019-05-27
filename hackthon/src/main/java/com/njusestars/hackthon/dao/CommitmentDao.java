@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommitmentDao extends JpaRepository<Commitment, Long> {
 
-    boolean deleteByStudentUsername(String username);
+    void deleteByStudentUsername(String username);
 
 }

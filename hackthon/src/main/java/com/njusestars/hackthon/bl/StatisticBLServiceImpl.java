@@ -67,7 +67,6 @@ public class StatisticBLServiceImpl implements StatisticBLService {
         return aver;
     }
 
-
     @Override
     public Map<String, Double> getTotalScore(Long assignmentId) {
         Assignment assignment = assignmentDao.findById(assignmentId).orElse(null);
