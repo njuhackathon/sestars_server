@@ -133,8 +133,10 @@ public class TeacherController {
                 if (list == null) {
                     list = new ArrayList<>();
                 }
-                list.add(this.toAnswerVO(answer));
-                questionListMap.put(question, list);
+                if (answer.getScore() == null) {
+                    list.add(this.toAnswerVO(answer));
+                    questionListMap.put(question, list);
+                }
             }
         }
         Map<QuestionVO, List<AnswerVO>> questionAnswers = new HashMap<>();
