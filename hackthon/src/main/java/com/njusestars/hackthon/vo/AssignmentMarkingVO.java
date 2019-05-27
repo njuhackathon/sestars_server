@@ -4,35 +4,30 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * <br>
- * created on 2019/5/26
+ * created on 2019/5/27
  *
  * @author Xunner
  **/
 @Data
-public class AssignmentVO {
+public class AssignmentMarkingVO {
     Long id;
     String title;
     LocalDateTime endDate;
     String teacherUsername;
-    List<QuestionVO> questionList;
+    Map<QuestionVO, List<AnswerVO>> questionAnswers;
 
-    public AssignmentVO() {
+    public AssignmentMarkingVO() {
     }
 
-    public AssignmentVO(Long id, String title) {
-        this.id = id;
-        this.title = title;
-    }
-
-    public AssignmentVO(Long id, String title, LocalDateTime endDate, String teacherUsername, List<QuestionVO> questionList) {
+    public AssignmentMarkingVO(Long id, String title, LocalDateTime endDate, String teacherUsername) {
         this.id = id;
         this.title = title;
         this.endDate = endDate;
         this.teacherUsername = teacherUsername;
-        this.questionList = questionList;
     }
 }
