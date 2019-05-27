@@ -97,7 +97,7 @@ public class TeacherController {
         assignment.setClassroomSet(classroomSet);
         List<Question> questionSet = new ArrayList<>();
         for (QuestionVO questionVO : createAssigmentVO.getQuestionList()) {
-            questionSet.add(new Question(questionVO.getTitle(), questionVO.getImageUrl(), assignment));
+            questionSet.add(new Question(questionVO.getTitle(), questionVO.getImageUrl(), assignment, questionVO.getScore()));
         }
         assignment.setQuestionList(questionSet);
         assignment = teacherBLService.publishAssignment(assignment);
