@@ -66,7 +66,7 @@ public class StatisticBLServiceImpl implements StatisticBLService {
         aver = sum / scoreList.size();
         return aver;
     }
-    
+
 
     @Override
     public Map<String, Double> getTotalScore(Long assignmentId) {
