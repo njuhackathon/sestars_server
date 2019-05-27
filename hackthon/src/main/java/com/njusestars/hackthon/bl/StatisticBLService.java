@@ -41,13 +41,20 @@ public interface StatisticBLService {
      */
     List<Double> getScoreList(Long assignmentId);
 
+
     /**
-     * 总共需要完成的学生数量
+     * 所有需要完成的学生数量
+     * @param assignId
+     * @return
+     */
+    Integer getTotalStuNumByAssign(Long assignId);
+
+    /**
+     * 还需要完成的学生数量
      * @param assignId
      * @return
      */
     Integer getToDoStuNum(Long assignId);
-
 
     /**
      * 还需要完成的学生数量

@@ -143,12 +143,28 @@ public class StatisticBLServiceImpl implements StatisticBLService {
 
     @Override
     public Integer getToDoStuNumByQuestion(Long questionId) {
-        return null;
+        Question question = questionDao.findById(questionId).orElse(null);
+        Assignment assignment = question.getAssignment();
+
+        Integer total = this.getTotalStuNumByAssign(assignment.getId());
+        Integer todo = total - this.getDoneStuNumByQuestion(questionId);
+        return todo;
     }
 
     @Override
     public Integer getDoneStuNumByQuestion(Long questionId) {
-        return null;
+        Question question = questionDao.findById(questionId).orElse(null);
+        Assignment assignment = question.getAssignment();
+        int num = 0;
+        for (Commitment eachCommit : assignment.getCommitments()) {
+            for (Answer eachAns : eachCommit.getAnswerSet()) {
+                if (eachAns.getQuestion().getId().equals(questionId)
+                        && eachAns.answered()){
+                    num ++;
+                }
+            }
+        }
+        return num;
     }
 
     @Override
@@ -188,7 +204,7 @@ public class StatisticBLServiceImpl implements StatisticBLService {
     }
 
     @Override
-    public Integer getToDoStuNum(Long assignId) {
+    public Integer getTotalStuNumByAssign(Long assignId) {
         Assignment assignment = assignmentDao.findById(assignId).orElse(null);
         if (assignment == null) {
             System.err.println("getToDoStuNum() assign not exists");
@@ -209,9 +225,13 @@ public class StatisticBLServiceImpl implements StatisticBLService {
             }
             sum += studentSet.size();
         }
+        return sum;
+    }
 
+    @Override
+    public Integer getToDoStuNum(Long assignId) {
+        Integer sum = this.getTotalStuNumByAssign(assignId);
         Integer todo = sum - this.getDoneStuNum(assignId);
-
         return todo;
     }
 

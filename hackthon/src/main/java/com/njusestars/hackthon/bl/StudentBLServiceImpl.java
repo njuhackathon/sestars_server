@@ -1,9 +1,6 @@
 package com.njusestars.hackthon.bl;
 
-import com.njusestars.hackthon.dao.ClassroomDao;
-import com.njusestars.hackthon.dao.CommitmentDao;
-import com.njusestars.hackthon.dao.QuestionDao;
-import com.njusestars.hackthon.dao.StudentDao;
+import com.njusestars.hackthon.dao.*;
 import com.njusestars.hackthon.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +28,8 @@ public class StudentBLServiceImpl implements StudentBLService {
     @Autowired
     private ClassroomDao classroomDao;
 
+    @Autowired
+    private AnswerDao answerDao;
 
     @Override
     public Commitment commitAssignment(Commitment commitment) {
@@ -51,6 +50,10 @@ public class StudentBLServiceImpl implements StudentBLService {
             commitmentDao.deleteById(oldCommit.getId());
         }
         Commitment newCommit = commitmentDao.save(commitment);
+        for (Answer answer : newCommit.getAnswerSet()) {
+            answerDao.save(answer);
+        }
+
         return newCommit;
     }
 
