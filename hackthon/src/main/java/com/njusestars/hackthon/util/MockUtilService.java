@@ -92,4 +92,16 @@ public class MockUtilService {
         return assignment;
     }
 
+    public Commitment getRandomCommitment(Student student, Assignment assignment) {
+        Commitment commitment = new Commitment();
+        commitment.setStudent(student);
+        commitment.setAssignment(assignment);
+        commitment.setSubmitTime(LocalDateTime.now());
+
+        Answer answer = new Answer();
+        answer.setCommitment(commitment);
+
+        commitment = studentBLService.commitAssignment(commitment);
+        return commitment;
+    }
 }
