@@ -27,7 +27,7 @@ public class Answer {
     @ManyToOne(cascade = CascadeType.MERGE)
     private Commitment commitment;
 
-    @OneToOne
+    @ManyToOne
     private Question question;
 
     @ElementCollection

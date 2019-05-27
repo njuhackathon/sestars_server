@@ -1,6 +1,7 @@
 package com.njusestars.hackthon.bl;
 
 import com.njusestars.hackthon.dao.AssignmentDao;
+import com.njusestars.hackthon.dao.QuestionDao;
 import com.njusestars.hackthon.dao.StudentDao;
 import com.njusestars.hackthon.dao.TeacherDao;
 import com.njusestars.hackthon.entity.*;
@@ -25,6 +26,9 @@ public class StatisticBLServiceImpl implements StatisticBLService {
 
     @Autowired
     private TeacherDao teacherDao;
+
+    @Autowired
+    private QuestionDao questionDao;
 
     @Override
     public Integer getRankInAssignment(Long assignmentId, String studentName) {
@@ -63,6 +67,48 @@ public class StatisticBLServiceImpl implements StatisticBLService {
         }
         aver = sum / scoreList.size();
         return aver;
+    }
+
+    @Override
+    public List<Double> getScoreListByQuestion(Long questionId) {
+        if (questionId == null) {
+            System.err.println("getScoreListByQuestion() : question id is null");
+            return null;
+        }
+        Question question = questionDao.findById(questionId).orElse(null);
+        if (question == null) {
+            System.err.println("getScoreList() : can not get question by id");
+            return null;
+        }
+        Assignment assignment = question.getAssignment();
+        Set<Commitment> commitmentSet = assignment.getCommitments();
+
+        List<Double> scoreList = new ArrayList<>();
+
+        for (Commitment eachCommit : commitmentSet) {
+            for (Answer eachAns : eachCommit.getAnswerSet()) {
+                if (eachAns.getQuestion().getId().equals(questionId)){
+                    scoreList.add(eachAns.getScore());
+                }
+            }
+        }
+        return scoreList;
+    }
+
+    @Override
+    public Double getHighestScoreByQuestion(Long questionId) {
+        Question question = null;
+        return null;
+    }
+
+    @Override
+    public Double getLowestScoreByQuestion(Long questionId) {
+        return null;
+    }
+
+    @Override
+    public Double getAverScoreByQuestion(Long questionId) {
+        return null;
     }
 
     @Override
@@ -123,7 +169,10 @@ public class StatisticBLServiceImpl implements StatisticBLService {
             }
             sum += studentSet.size();
         }
-        return sum;
+
+        Integer todo = sum - this.getDoneStuNum(assignId);
+
+        return todo;
     }
 
     @Override

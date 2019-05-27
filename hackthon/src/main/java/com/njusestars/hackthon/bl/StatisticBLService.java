@@ -78,4 +78,36 @@ public interface StatisticBLService {
      */
     Double getAverScore(Long assignmentId);
 
+
+    /**
+     * 得到quesiton的得分列表,从高到低排序
+     * @param questionId
+     * @return
+     */
+    List<Double> getScoreListByQuestion(Long questionId);
+
+
+    /**
+     * 每道题的最高分
+     * @param questionId
+     * @return
+     */
+    Double getHighestScoreByQuestion(Long questionId);
+
+    /**
+     * 每道题的最低分
+     * @param questionId
+     * @return
+     */
+    Double getLowestScoreByQuestion(Long questionId);
+
+    /**
+     * 每道题的平均分
+     * @param questionId
+     * @return
+     */
+    Double getAverScoreByQuestion(Long questionId);
+
+
+
 }
