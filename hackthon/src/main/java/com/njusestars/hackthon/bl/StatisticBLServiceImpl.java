@@ -143,8 +143,10 @@ public class StatisticBLServiceImpl implements StatisticBLService {
 
     @Override
     public Integer getToDoStuNumByQuestion(Long questionId) {
-
-        return null;
+        Question question = questionDao.findById(questionId).orElse(null);
+        Assignment assignment = question.getAssignment();
+        //TODO
+        return 0;
     }
 
     @Override
@@ -155,7 +157,7 @@ public class StatisticBLServiceImpl implements StatisticBLService {
         for (Commitment eachCommit : assignment.getCommitments()) {
             for (Answer eachAns : eachCommit.getAnswerSet()) {
                 if (eachAns.getQuestion().getId().equals(questionId)
-                        && this.ifAnswerSubmit(eachAns)){
+                        && eachAns.answered()){
                     num ++;
                 }
             }
@@ -163,11 +165,7 @@ public class StatisticBLServiceImpl implements StatisticBLService {
         return num;
     }
 
-    private boolean ifAnswerSubmit(Answer answer){
-        boolean hasText = answer.getText()!=null && answer.getText().trim().length()!=0;
-        boolean hasImage = answer.getImagePaths()!=null && answer.getImagePaths().size()!=0;
-        return hasImage;
-    }
+
 
 
     @Override
