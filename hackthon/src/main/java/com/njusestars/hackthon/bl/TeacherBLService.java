@@ -67,7 +67,7 @@ public interface TeacherBLService {
 
 
     /**
-     * 得到当前教师未完成的作业
+     * 得到当前教师未截至的作业列表
      * @param teacher 对参数有假设，具有id
      * @return assignment list 按发布时间由近到远排序
      */
@@ -75,7 +75,7 @@ public interface TeacherBLService {
 
 
     /**
-     * 得到当前教师已完成的作业
+     * 得到当前教师已经截至的作业列表
      * @param teacher 对参数有假设，具有id
      * @return assignment list 按发布时间由近到远排序
      */
@@ -83,13 +83,18 @@ public interface TeacherBLService {
 
 
     /**
-     * 得到已经批改完成的作业
+     * 得到已经截至且已经批改完成的作业
      * @param teacher
      * @return
      */
     List<Assignment> getCheckedAssignList(Teacher teacher);
 
 
+    /**
+     * 教师已经截止但还未批改的作业
+     * @param teacher
+     * @return
+     */
     List<Assignment> getUncheckedAssignList(Teacher teacher);
 
 
