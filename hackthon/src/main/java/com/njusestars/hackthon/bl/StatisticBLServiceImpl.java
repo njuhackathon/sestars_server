@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.zip.DeflaterOutputStream;
 
 /**
  * @author lzb
@@ -110,16 +111,38 @@ public class StatisticBLServiceImpl implements StatisticBLService {
 
     @Override
     public Integer getDoneStuNum(Long assignId) {
-        return null;
+        if (assignId == null) {
+            System.err.println("assign id is null ~!");
+            return null;
+        }
+        Assignment assignment = this.assignmentDao.findById(assignId).orElse(null);
+        if (assignment == null) {
+            System.err.println("can not find assignment");
+            return null;
+        }
+        Integer doneSum = assignment.getCommitments().size();
+        return doneSum;
     }
 
     @Override
     public Double getHighestScore(Long assignId) {
-        return null;
+        List<Double> scoreList = getScoreList(assignId);
+        if (scoreList == null || scoreList.size()==0) {
+            System.err.println("getHighestScore(): score list is empty");
+            return 0.0;
+        }
+        Double highestScore = scoreList.get(0);
+        return highestScore;
     }
 
     @Override
     public Double getLowestScore(Long assignId) {
-        return null;
+        List<Double> scoreList = getScoreList(assignId);
+        if (scoreList == null || scoreList.size()==0) {
+            System.err.println("getLowestScore(): score list is empty");
+            return 0.0;
+        }
+        Double lowest = scoreList.get(scoreList.size()-1);
+        return lowest;
     }
 }
