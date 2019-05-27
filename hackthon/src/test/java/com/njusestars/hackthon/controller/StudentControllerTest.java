@@ -32,6 +32,7 @@ import static org.junit.Assert.*;
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class StudentControllerTest {
     @Autowired
     private StudentController studentController;

@@ -8,6 +8,7 @@ import com.njusestars.hackthon.enums.UserType;
 import com.njusestars.hackthon.util.MockUtil;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class TeacherBLServiceImplTest {
 
     @Autowired

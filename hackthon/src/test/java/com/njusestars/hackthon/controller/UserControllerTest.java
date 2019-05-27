@@ -4,6 +4,7 @@ import com.njusestars.hackthon.util.ResultMessage;
 import com.njusestars.hackthon.vo.LoginVO;
 import com.njusestars.hackthon.vo.SignUpVO;
 import com.njusestars.hackthon.vo.UserVO;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import static org.junit.Assert.*;
  **/
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@Ignore
 public class UserControllerTest {
     @Autowired
     private UserController userController;
