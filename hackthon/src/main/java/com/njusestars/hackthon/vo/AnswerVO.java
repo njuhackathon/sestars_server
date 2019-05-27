@@ -13,16 +13,20 @@ import java.util.List;
  **/
 @Data
 public class AnswerVO {
+    Long answerId;
     Long questionId;
     String text;
+    String studentRealName;
     List<String> imageUrls;
 
     public AnswerVO() {
     }
 
-    public AnswerVO(Long questionId, String text, List<String> imageUrls) {
+    public AnswerVO(Long answerId, Long questionId, String text, String studentRealName, List<String> imageUrls) {
+        this.answerId = answerId;
         this.questionId = questionId;
         this.text = text;
+        this.studentRealName = studentRealName;
         this.imageUrls = imageUrls;
     }
 }

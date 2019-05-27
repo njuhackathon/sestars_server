@@ -144,6 +144,7 @@ public class TeacherController {
                 assignment.getEndDate(), assignment.getTeacher().getUsername());
         Map<Question, List<AnswerVO>> questionListMap = new HashMap<>();
         for (Commitment commitment : assignment.getCommitments()) {
+            String studentRealName = commitment.getStudent().getRealName();
             for (Answer answer : commitment.getAnswerSet()) {
                 Question question = answer.getQuestion();
                 List<AnswerVO> list = questionListMap.get(question);
@@ -151,7 +152,7 @@ public class TeacherController {
                     list = new ArrayList<>();
                 }
                 if (answer.getScore() == null) {
-                    list.add(this.toAnswerVO(answer));
+                    list.add(this.toAnswerVO(answer, studentRealName));
                     questionListMap.put(question, list);
                 }
             }
@@ -176,7 +177,17 @@ public class TeacherController {
         }
     }
 
-    private AnswerVO toAnswerVO(Answer answer) {
-        return new AnswerVO(answer.getId(), answer.getText(), new ArrayList<>(answer.getImagePaths()));
+//    @GetMapping(value = "/teacher/assignment/statistic")
+//    public ResultMessage getAssignmentStatistic(@RequestParam Long assignmentId) {
+//        Answer answer = teacherBLService.checkAnswer(answerId, score);
+//        if (answer == null) {
+//            return new ResultMessage(FAILED, false, null);
+//        } else {
+//            return new ResultMessage(null, true, null);
+//        }
+//    }
+
+    private AnswerVO toAnswerVO(Answer answer, String studentRealName) {
+        return new AnswerVO(answer.getId(), answer.getQuestion().getId(), answer.getText(), studentRealName, new ArrayList<>(answer.getImagePaths()));
     }
 }

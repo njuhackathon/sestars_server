@@ -223,18 +223,35 @@ public class TeacherControllerTest {
         Assignment assignment = mockUtilService.getRandomAssignment();
         Teacher teacher = assignment.getTeacher();
 
+        Student student = mockUtilService.getRandomStudent();
+        mockUtilService.getRandomCommitment(student, assignment);
+
         ResultMessage resultMessage = teacherController.getAssignment(assignment.getId());
         assertTrue(resultMessage.success);
         assertNull(resultMessage.message);
         assertTrue(resultMessage.data instanceof AssignmentMarkingVO);
 
-        Student student = mockUtilService.getRandomStudent();
-        Commitment commitment = mockUtilService.getRandomCommitment(student, assignment);
-
         AssignmentMarkingVO assignmentMarkingVO = (AssignmentMarkingVO) resultMessage.data;
+        assertEquals(assignment.getId(), assignmentMarkingVO.getId());
+        assertEquals(assignment.getTitle(), assignmentMarkingVO.getTitle());
+        assertEquals(assignment.getEndDate(), assignmentMarkingVO.getEndDate());
+        assertEquals(teacher.getUsername(), assignmentMarkingVO.getTeacherUsername());
+        assertEquals(assignment.getQuestionList().size(), assignmentMarkingVO.getQuestionAnswers().size());
     }
 
     @Test
     public void markAnswer() {
+        Assignment assignment = mockUtilService.getRandomAssignment();
+        Student student = mockUtilService.getRandomStudent();
+        Commitment commitment = mockUtilService.getRandomCommitment(student, assignment);
+        boolean marked = false;
+        for (Answer answer : commitment.getAnswerSet()) {
+            ResultMessage resultMessage = teacherController.markAnswer(answer.getId(), Math.random() * 100);
+            assertTrue(resultMessage.success);
+            assertNull(resultMessage.message);
+            assertNull(resultMessage.data);
+            marked = true;
+        }
+        assertTrue(marked);
     }
 }
