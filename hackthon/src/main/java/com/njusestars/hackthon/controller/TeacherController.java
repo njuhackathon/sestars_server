@@ -7,10 +7,7 @@ import com.njusestars.hackthon.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 教师相关Controller
@@ -113,16 +110,50 @@ public class TeacherController {
 
     @GetMapping(value = "/teacher/assignment/all")
     public ResultMessage getAllAssignment(@RequestParam String teacherUsername) {
-        return null;
+        Teacher teacher = teacherBLService.getTeacherByUsername(teacherUsername);
+        List<Assignment> assignmentList = teacherBLService.getToDoAssignmentList(teacher);
+        assignmentList.addAll(teacherBLService.getDoneAssignmentList(teacher));
+        List<AssignmentVO> assignmentVOS = new ArrayList<>();
+        for (Assignment assignment : assignmentList) {
+            assignmentVOS.add(new AssignmentVO(assignment.getId(), assignment.getTitle()));
+        }
+        return new ResultMessage(null, true, assignmentVOS);
     }
 
     @GetMapping(value = "/teacher/assignment/")
-    public ResultMessage getAssignment(@RequestParam String teacherUsername, @RequestParam Long assignmentId) {
-        return null;
+    public ResultMessage getAssignment(@RequestParam Long assignmentId) {
+        Assignment assignment = teacherBLService.getAssignmentById(assignmentId);
+        AssignmentMarkingVO assignmentVO = new AssignmentMarkingVO(assignment.getId(), assignment.getTitle(),
+                assignment.getEndDate(), assignment.getTeacher().getUsername());
+        Map<Question, List<AnswerVO>> questionListMap = new HashMap<>();
+        for (Commitment commitment : assignment.getCommitments()) {
+            for (Answer answer : commitment.getAnswerSet()) {
+                Question question = answer.getQuestion();
+                List<AnswerVO> list = questionListMap.get(question);
+                if (list == null) {
+                    list = new ArrayList<>();
+                }
+                list.add(this.toAnswerVO(answer));
+                questionListMap.put(question, list);
+            }
+        }
+        Map<QuestionVO, List<AnswerVO>> questionAnswers = new HashMap<>();
+        for (Map.Entry<Question, List<AnswerVO>> entry : questionListMap.entrySet()) {
+            Question question = entry.getKey();
+            QuestionVO questionVO = new QuestionVO(question.getId(), question.getTitle(), question.getImagePath());
+            questionAnswers.put(questionVO, entry.getValue());
+        }
+        assignmentVO.setQuestionAnswers(questionAnswers);
+        return new ResultMessage(null, true, assignmentVO);
     }
 
     @GetMapping(value = "/teacher/assignment/mark")
-    public ResultMessage getAssignment(@RequestParam Long answerId, @RequestParam Double score) {
+    public ResultMessage markAnswer(@RequestParam Long answerId, @RequestParam Double score) {
+//        teacherBLService.
         return null;
+    }
+
+    private AnswerVO toAnswerVO(Answer answer) {
+        return new AnswerVO(answer.getId(), answer.getText(), new ArrayList<>(answer.getImagePaths()));
     }
 }

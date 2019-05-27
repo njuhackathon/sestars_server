@@ -16,4 +16,13 @@ public class AnswerVO {
     Long questionId;
     String text;
     List<String> imageUrls;
+
+    public AnswerVO() {
+    }
+
+    public AnswerVO(Long questionId, String text, List<String> imageUrls) {
+        this.questionId = questionId;
+        this.text = text;
+        this.imageUrls = imageUrls;
+    }
 }
