@@ -3,6 +3,7 @@ package com.njusestars.hackthon.util;
 import com.njusestars.hackthon.bl.StudentBLService;
 import com.njusestars.hackthon.bl.TeacherBLService;
 import com.njusestars.hackthon.bl.UserBLService;
+import com.njusestars.hackthon.dao.AnswerDao;
 import com.njusestars.hackthon.entity.*;
 import com.njusestars.hackthon.enums.UserType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,10 @@ public class MockUtilService {
 
     @Autowired
     private StudentBLService studentBLService;
+
+    @Autowired
+    private AnswerDao answerDao;
+
 
     public String getRandomString(){
         return UUID.randomUUID().toString();
@@ -103,5 +108,13 @@ public class MockUtilService {
 
         commitment = studentBLService.commitAssignment(commitment);
         return commitment;
+    }
+
+    public Answer getRandomAnswer(Commitment commitment,Question question){
+        Answer answer = new Answer();
+        answer.setCommitment(commitment);
+        answer.setQuestion(question);
+        Answer resultAns = answerDao.save(answer);
+        return resultAns;
     }
 }

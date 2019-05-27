@@ -21,12 +21,7 @@ public interface StatisticBLService {
      */
     Integer getRankInAssignment(Long assignmentId,String studentName);
 
-    /**
-     * 某次作业的平均分
-     * @param assignmentId
-     * @return
-     */
-    Double getAverageInAssignment(Long assignmentId);
+
 
 
 
@@ -46,5 +41,41 @@ public interface StatisticBLService {
      */
     List<Double> getScoreList(Long assignmentId);
 
+    /**
+     * 总共需要完成的学生数量
+     * @param assignId
+     * @return
+     */
+    Integer getToDoStuNum(Long assignId);
+
+
+    /**
+     * 还需要完成的学生数量
+     * @param assignId
+     * @return
+     */
+    Integer getDoneStuNum(Long assignId);
+
+
+    /**
+     * 最高分
+     * @param assignId
+     * @return
+     */
+    Double getHighestScore(Long assignId);
+
+    /**
+     * 最低分
+     * @param assignId
+     * @return
+     */
+    Double getLowestScore(Long assignId);
+
+    /**
+     * 某次作业的平均分
+     * @param assignmentId
+     * @return
+     */
+    Double getAverScore(Long assignmentId);
 
 }

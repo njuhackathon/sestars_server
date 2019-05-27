@@ -68,10 +68,11 @@ public class StudentBLServiceImplTest {
         commitment.setStudent(student);
         commitment.setSubmitTime(LocalDateTime.now());
         commitment.setAssignment(assignment);
+        //6.1 创建answer set
         Set<Answer> answerSet = new HashSet<>();
+        //TODO 还需要添加answer set
+        commitment.setAnswerSet(answerSet);
 
-        commitment.getAnswerSet();
-        //TODO 还需要添加
         return null;
 
     }

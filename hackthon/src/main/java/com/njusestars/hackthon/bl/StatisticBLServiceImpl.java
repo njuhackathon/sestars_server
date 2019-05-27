@@ -53,7 +53,7 @@ public class StatisticBLServiceImpl implements StatisticBLService {
     }
 
     @Override
-    public Double getAverageInAssignment(Long assignmentId) {
+    public Double getAverScore(Long assignmentId) {
         if (assignmentId == null || !assignmentDao.existsById(assignmentId)) {
             System.err.println("assignment id not exists");
             return null;
@@ -101,5 +101,25 @@ public class StatisticBLServiceImpl implements StatisticBLService {
         scoreList.sort((a,b)-> (a>b)?-1:1);//逆序
 
         return scoreList;
+    }
+
+    @Override
+    public Integer getToDoStuNum(Long assignId) {
+        return null;
+    }
+
+    @Override
+    public Integer getDoneStuNum(Long assignId) {
+        return null;
+    }
+
+    @Override
+    public Double getHighestScore(Long assignId) {
+        return null;
+    }
+
+    @Override
+    public Double getLowestScore(Long assignId) {
+        return null;
     }
 }
