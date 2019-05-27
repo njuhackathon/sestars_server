@@ -77,6 +77,17 @@ public class MockUtilService {
         return assignment;
     }
 
+    public Assignment getRandomAssignment(Teacher teacher){
+        Assignment assignment = new Assignment();
+        assignment.setTitle(getRandomString());
+        assignment.setBeginDate(LocalDateTime.now());
+        assignment.setEndDate(LocalDateTime.of(2021, Month.APRIL,9,14,0));
+
+        assignment.setTeacher(teacher);
+        assignment = this.teacherBLService.publishAssignment(assignment);
+        return assignment;
+    }
+
 
 
 }

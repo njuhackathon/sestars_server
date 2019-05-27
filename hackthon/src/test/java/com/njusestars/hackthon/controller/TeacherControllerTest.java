@@ -2,11 +2,14 @@ package com.njusestars.hackthon.controller;
 
 import com.njusestars.hackthon.dao.ClassroomDao;
 import com.njusestars.hackthon.dao.TeacherDao;
+import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Classroom;
 import com.njusestars.hackthon.entity.Teacher;
+import com.njusestars.hackthon.util.MockUtilService;
 import com.njusestars.hackthon.util.ResultMessage;
 import com.njusestars.hackthon.vo.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,8 @@ public class TeacherControllerTest {
     private TeacherController teacherController;
     @Autowired
     private UserController userController;
+    @Autowired
+    private MockUtilService mockUtilService;
     @Autowired
     private ClassroomDao classroomDao;
     @Autowired
@@ -154,37 +159,38 @@ public class TeacherControllerTest {
     }
 
     @Test
-    public void getAllAssignment() {
-        ResultMessage resultMessage = teacherController.getAllAssignment(teacherVO.username);
+    @Ignore
+    public void getAssignmentPending() {
+        Assignment assignment = mockUtilService.getRandomAssignment();
+        Teacher teacher = assignment.getTeacher();
+
+        ResultMessage resultMessage = teacherController.getAssignmentPending(teacher.getUsername());
         assertTrue(resultMessage.success);
         assertNull(resultMessage.message);
         assertTrue(resultMessage.data instanceof List);
         List<AssignmentVO> list = (List<AssignmentVO>) resultMessage.data;
         assertTrue(list.isEmpty());
 
-        List<Classroom> ret = classroomDao.findAll();
-        assertFalse(ret.isEmpty());
-        // 正常发布作业
-        CreateAssigmentVO createAssigmentVO = new CreateAssigmentVO();
-        createAssigmentVO.setTitle("test");
-        createAssigmentVO.setEndTime(LocalDateTime.now());
-        createAssigmentVO.setTeacherUsername(teacherVO.username);
-        List<QuestionVO> questionList = new ArrayList<>();
-        questionList.add(new QuestionVO("test", "test.png", 0.0));
-        createAssigmentVO.setQuestionList(questionList);
-        List<Long> classroomIds = new ArrayList<>();
-        classroomIds.add(ret.get(0).getId());
-        createAssigmentVO.setClassroomIds(classroomIds);
+        mockUtilService.getRandomAssignment(teacher);
+        resultMessage = teacherController.getAssignmentPending(teacher.getUsername());
 
-        teacherController.createAssignment(createAssigmentVO);
-
-        resultMessage = teacherController.getAllAssignment(teacherVO.username);
-
-
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertTrue(resultMessage.data instanceof List);
+        list = (List<AssignmentVO>) resultMessage.data;
+        assertEquals(1, list.size());
     }
 
     @Test
     public void getAssignment() {
+        Assignment assignment = mockUtilService.getRandomAssignment();
+        Teacher teacher = assignment.getTeacher();
+
+        ResultMessage resultMessage = teacherController.getAssignment(assignment.getId());
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertTrue(resultMessage.data instanceof AssignmentMarkingVO);
+//        AssignmentMarkingVO assignmentMarkingVO = (AssignmentMarkingVO)
     }
 
     @Test
