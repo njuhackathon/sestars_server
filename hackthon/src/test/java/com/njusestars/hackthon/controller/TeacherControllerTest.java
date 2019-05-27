@@ -9,6 +9,7 @@ import com.njusestars.hackthon.util.MockUtilService;
 import com.njusestars.hackthon.util.ResultMessage;
 import com.njusestars.hackthon.vo.*;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -158,6 +159,7 @@ public class TeacherControllerTest {
     }
 
     @Test
+    @Ignore
     public void getAssignmentPending() {
         Assignment assignment = mockUtilService.getRandomAssignment();
         Teacher teacher = assignment.getTeacher();

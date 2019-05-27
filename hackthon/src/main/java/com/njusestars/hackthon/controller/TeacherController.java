@@ -112,36 +112,29 @@ public class TeacherController {
     public ResultMessage getAssignmentPending(@RequestParam String teacherUsername) {
         Teacher teacher = teacherBLService.getTeacherByUsername(teacherUsername);
         List<Assignment> assignmentList = teacherBLService.getUnfinishedAssignList(teacher);
-        assignmentList.addAll(teacherBLService.getFinishedAssignList(teacher));
-        List<AssignmentVO> assignmentVOS = new ArrayList<>();
-        for (Assignment assignment : assignmentList) {
-            assignmentVOS.add(new AssignmentVO(assignment.getId(), assignment.getTitle()));
-        }
-        return new ResultMessage(null, true, assignmentVOS);
+        return new ResultMessage(null, true, this.toAssignmentVOList(assignmentList));
     }
 
     @GetMapping(value = "/teacher/assignment/todo")
     public ResultMessage getAssignmentTodo(@RequestParam String teacherUsername) {
         Teacher teacher = teacherBLService.getTeacherByUsername(teacherUsername);
-        List<Assignment> assignmentList = teacherBLService.getUnfinishedAssignList(teacher);
-        assignmentList.addAll(teacherBLService.getFinishedAssignList(teacher));
-        List<AssignmentVO> assignmentVOS = new ArrayList<>();
-        for (Assignment assignment : assignmentList) {
-            assignmentVOS.add(new AssignmentVO(assignment.getId(), assignment.getTitle()));
-        }
-        return new ResultMessage(null, true, assignmentVOS);
+        List<Assignment> assignmentList = teacherBLService.getFinishedAssignList(teacher);
+        return new ResultMessage(null, true, this.toAssignmentVOList(assignmentList));
     }
 
     @GetMapping(value = "/teacher/assignment/done")
     public ResultMessage getAssignmentDone(@RequestParam String teacherUsername) {
         Teacher teacher = teacherBLService.getTeacherByUsername(teacherUsername);
-        List<Assignment> assignmentList = teacherBLService.getUnfinishedAssignList(teacher);
-        assignmentList.addAll(teacherBLService.getFinishedAssignList(teacher));
+        List<Assignment> assignmentList = teacherBLService.getCheckedAssignList(teacher);
+        return new ResultMessage(null, true, this.toAssignmentVOList(assignmentList));
+    }
+
+    private List<AssignmentVO> toAssignmentVOList(List<Assignment> list) {
         List<AssignmentVO> assignmentVOS = new ArrayList<>();
-        for (Assignment assignment : assignmentList) {
+        for (Assignment assignment : list) {
             assignmentVOS.add(new AssignmentVO(assignment.getId(), assignment.getTitle()));
         }
-        return new ResultMessage(null, true, assignmentVOS);
+        return assignmentVOS;
     }
 
     @GetMapping(value = "/teacher/assignment/")
