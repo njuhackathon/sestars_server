@@ -74,7 +74,7 @@ public class StudentBLServiceImpl implements StudentBLService {
         }
         Student student = studentDao.findById(username).orElse(null);
         if (student == null) {
-            System.err.println("getStudentByUsername() 这里的username不存在; username=" + username+";");
+            System.err.println("getStudentByUsername() username not exists; username=" + username+";");
         }
         return student;
     }
