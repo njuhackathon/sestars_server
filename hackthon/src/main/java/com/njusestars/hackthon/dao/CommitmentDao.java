@@ -17,6 +17,6 @@ public interface CommitmentDao extends JpaRepository<Commitment, Long> {
 
     boolean existsByStudentUsername(String username);
 
-    List<Commitment> findAllByAssignmentIdAndStudent_Username(Long assignmentId, String stuName);
+    Commitment findByAssignmentIdAndStudent_Username(Long assignmentId, String stuName);
 
 }
