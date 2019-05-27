@@ -59,7 +59,7 @@ public class StudentBLServiceImpl implements StudentBLService {
     @Override
     public Student getStudentByUsername(String username) {
         if (username == null) {
-            System.err.println("username==null");
+            System.err.println("getStudentByUsername() :username==null");
             return null;
         }
         Student student = studentDao.findById(username).orElse(null);
