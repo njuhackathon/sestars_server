@@ -3,10 +3,7 @@ package com.njusestars.hackthon.bl;
 import com.njusestars.hackthon.dao.AssignmentDao;
 import com.njusestars.hackthon.dao.StudentDao;
 import com.njusestars.hackthon.dao.TeacherDao;
-import com.njusestars.hackthon.entity.Assignment;
-import com.njusestars.hackthon.entity.Commitment;
-import com.njusestars.hackthon.entity.Student;
-import com.njusestars.hackthon.entity.Teacher;
+import com.njusestars.hackthon.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -106,7 +103,27 @@ public class StatisticBLServiceImpl implements StatisticBLService {
 
     @Override
     public Integer getToDoStuNum(Long assignId) {
-        return null;
+        Assignment assignment = assignmentDao.findById(assignId).orElse(null);
+        if (assignment == null) {
+            System.err.println("getToDoStuNum() assign not exists");
+            return null;
+        }
+        //查找classroom
+        Set<Classroom> classroomSet = assignment.getClassroomSet();
+        if (classroomSet == null || classroomSet.size()==0) {
+            //没有classroom或为空
+            return 0;
+        }
+        //返回classroom里所有的学生数
+        Integer sum = 0;
+        for (Classroom eachClass : classroomSet) {
+            Set<Student> studentSet = eachClass.getStudentSet();
+            if (studentSet == null || studentSet.size()==0) {
+                continue;
+            }
+            sum += studentSet.size();
+        }
+        return sum;
     }
 
     @Override
