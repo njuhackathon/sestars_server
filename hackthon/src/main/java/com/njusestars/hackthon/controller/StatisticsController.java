@@ -5,8 +5,8 @@ import com.njusestars.hackthon.bl.TeacherBLService;
 import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Question;
 import com.njusestars.hackthon.util.ResultMessage;
-import com.njusestars.hackthon.vo.AssignTeaStaVO;
-import com.njusestars.hackthon.vo.QuesTeaStaVO;
+import com.njusestars.hackthon.vo.AssignStaVO;
+import com.njusestars.hackthon.vo.QuesStaVO;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,19 +34,35 @@ public class StatisticsController {
     }
 
     @GetMapping(value = "/teacher/assignment/statistic")
-    public ResultMessage getAssignmentStatistic(@RequestParam Long assignmentId) {
+    public ResultMessage getTeacherAssignmentStatistic(@RequestParam Long assignmentId) {
         Assignment assignment = teacherBLService.getAssignmentById(assignmentId);
-        List<QuesTeaStaVO> questions = new ArrayList<>();
-        for (Question question : assignment.getQuestionList()) {
+        AssignStaVO assignStaVO = new AssignStaVO(assignmentId, assignment.getTitle(), assignment.getEndDate(),
+                statisticBLService.getDoneStuNum(assignmentId), statisticBLService.getAverScore(assignmentId),
+                statisticBLService.getHighestScore(assignmentId), statisticBLService.getLowestScore(assignmentId),
+                0, this.getQuestions(assignment.getQuestionList()));
+        return new ResultMessage(null, true, assignStaVO);
+    }
+
+    @GetMapping(value = "/student/assignment/statistic")
+    public ResultMessage getStudentAssignmentStatistic(@RequestParam Long assignmentId, @RequestParam String studentUsername) {
+        Assignment assignment = teacherBLService.getAssignmentById(assignmentId);
+        Integer rank = statisticBLService.getRankInAssignment(assignmentId, studentUsername);
+        AssignStaVO assignStaVO = new AssignStaVO(assignmentId, assignment.getTitle(), assignment.getEndDate(),
+                statisticBLService.getDoneStuNum(assignmentId), statisticBLService.getAverScore(assignmentId),
+                statisticBLService.getHighestScore(assignmentId), statisticBLService.getLowestScore(assignmentId),
+                rank, this.getQuestions(assignment.getQuestionList()));
+        return new ResultMessage(null, true, assignStaVO);
+    }
+
+    private List<QuesStaVO> getQuestions(List<Question> questions) {
+        List<QuesStaVO> ret = new ArrayList<>();
+        for (Question question : questions) {
             Long questionId = question.getId();
-            questions.add(new QuesTeaStaVO(question.getId(), question.getTitle(), question.getScore(),
+            ret.add(new QuesStaVO(question.getId(), question.getTitle(), question.getScore(),
                     statisticBLService.getDoneStuNumByQuestion(questionId), statisticBLService.getToDoStuNumByQuestion(questionId),
                     statisticBLService.getAverScoreByQuestion(questionId), statisticBLService.getHighestScoreByQuestion(questionId),
                     statisticBLService.getLowestScoreByQuestion(questionId)));
         }
-        AssignTeaStaVO assignTeaStaVO = new AssignTeaStaVO(assignmentId, assignment.getTitle(), assignment.getEndDate(),
-                statisticBLService.getDoneStuNum(assignmentId), statisticBLService.getAverScore(assignmentId),
-                statisticBLService.getHighestScore(assignmentId), statisticBLService.getLowestScore(assignmentId), questions);
-        return new ResultMessage(null, true, assignTeaStaVO);
+        return ret;
     }
 }

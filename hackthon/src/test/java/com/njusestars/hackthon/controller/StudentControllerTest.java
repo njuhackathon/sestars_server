@@ -5,6 +5,7 @@ import com.njusestars.hackthon.dao.StudentDao;
 import com.njusestars.hackthon.entity.Assignment;
 import com.njusestars.hackthon.entity.Classroom;
 import com.njusestars.hackthon.entity.Student;
+import com.njusestars.hackthon.util.MockUtilService;
 import com.njusestars.hackthon.util.ResultMessage;
 import com.njusestars.hackthon.vo.AssignmentVO;
 import com.njusestars.hackthon.vo.CommitmentVO;
@@ -37,6 +38,8 @@ public class StudentControllerTest {
     private StudentDao studentDao;
     @Autowired
     private ClassroomDao classroomDao;
+    @Autowired
+    private MockUtilService mockUtilService;
 
     private Student student;
 

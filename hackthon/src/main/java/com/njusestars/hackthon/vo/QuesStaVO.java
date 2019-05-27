@@ -10,7 +10,7 @@ import lombok.Data;
  * @author Xunner
  **/
 @Data
-public class QuesTeaStaVO {
+public class QuesStaVO {
     Long questionId;
     String title;
     Double score;
@@ -20,10 +20,10 @@ public class QuesTeaStaVO {
     Double max;
     Double min;
 
-    public QuesTeaStaVO() {
+    public QuesStaVO() {
     }
 
-    public QuesTeaStaVO(Long questionId, String title, Double score, Integer commitCount, Integer notCommitCount, Double average, Double max, Double min) {
+    public QuesStaVO(Long questionId, String title, Double score, Integer commitCount, Integer notCommitCount, Double average, Double max, Double min) {
         this.questionId = questionId;
         this.title = title;
         this.score = score;
