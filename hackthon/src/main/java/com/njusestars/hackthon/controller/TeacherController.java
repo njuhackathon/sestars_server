@@ -177,16 +177,6 @@ public class TeacherController {
         }
     }
 
-//    @GetMapping(value = "/teacher/assignment/statistic")
-//    public ResultMessage getAssignmentStatistic(@RequestParam Long assignmentId) {
-//        Answer answer = teacherBLService.checkAnswer(answerId, score);
-//        if (answer == null) {
-//            return new ResultMessage(FAILED, false, null);
-//        } else {
-//            return new ResultMessage(null, true, null);
-//        }
-//    }
-
     private AnswerVO toAnswerVO(Answer answer, String studentRealName) {
         return new AnswerVO(answer.getId(), answer.getQuestion().getId(), answer.getText(), studentRealName, new ArrayList<>(answer.getImagePaths()));
     }

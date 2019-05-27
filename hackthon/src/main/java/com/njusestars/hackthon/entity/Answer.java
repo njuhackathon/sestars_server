@@ -33,6 +33,15 @@ public class Answer {
     @ElementCollection
     private Set<String> imagePaths;
 
+    /**
+     * 该回答是不是真的写了答案的
+     *
+     * @return true：是
+     */
+    public boolean answered() {
+        return (text != null && !text.isEmpty()) || (imagePaths != null && !imagePaths.isEmpty());
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
