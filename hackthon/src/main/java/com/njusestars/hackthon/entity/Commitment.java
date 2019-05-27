@@ -39,4 +39,16 @@ public class Commitment {
     public int hashCode() {
         return Objects.hash(getId());
     }
+
+    public Double getScore() {
+        Double sum = 0.0;
+        for (Answer eachAns : this.getAnswerSet()) {
+            if (eachAns == null || eachAns.getScore()==null) {
+                continue;
+            }
+            sum += eachAns.getScore();
+        }
+        this.score = sum;
+        return score;
+    }
 }
