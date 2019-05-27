@@ -159,10 +159,8 @@ public class TeacherControllerTest {
     }
 
     @Test
-    @Ignore
     public void getAssignmentPending() {
-        Assignment assignment = mockUtilService.getRandomAssignment();
-        Teacher teacher = assignment.getTeacher();
+        Teacher teacher = mockUtilService.getRandomTeacher();
 
         ResultMessage resultMessage = teacherController.getAssignmentPending(teacher.getUsername());
         assertTrue(resultMessage.success);
@@ -173,6 +171,47 @@ public class TeacherControllerTest {
 
         mockUtilService.getRandomAssignment(teacher);
         resultMessage = teacherController.getAssignmentPending(teacher.getUsername());
+
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertTrue(resultMessage.data instanceof List);
+        list = (List<AssignmentVO>) resultMessage.data;
+        assertEquals(1, list.size());
+    }
+
+    @Test
+    public void getAssignmentTodo() {
+        Teacher teacher = mockUtilService.getRandomTeacher();
+        ResultMessage resultMessage = teacherController.getAssignmentTodo(teacher.getUsername());
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertTrue(resultMessage.data instanceof List);
+        List<AssignmentVO> list = (List<AssignmentVO>) resultMessage.data;
+        assertTrue(list.isEmpty());
+
+        mockUtilService.getRandomAssignment(2018, teacher);
+        resultMessage = teacherController.getAssignmentTodo(teacher.getUsername());
+
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertTrue(resultMessage.data instanceof List);
+        list = (List<AssignmentVO>) resultMessage.data;
+        assertEquals(1, list.size());
+    }
+
+    @Test
+    @Ignore
+    public void getAssignmentDone() {
+        Teacher teacher = mockUtilService.getRandomTeacher();
+        ResultMessage resultMessage = teacherController.getAssignmentDone(teacher.getUsername());
+        assertTrue(resultMessage.success);
+        assertNull(resultMessage.message);
+        assertTrue(resultMessage.data instanceof List);
+        List<AssignmentVO> list = (List<AssignmentVO>) resultMessage.data;
+        assertTrue(list.isEmpty());
+
+        mockUtilService.getRandomAssignment(2018, teacher);
+        resultMessage = teacherController.getAssignmentDone(teacher.getUsername());
 
         assertTrue(resultMessage.success);
         assertNull(resultMessage.message);

@@ -65,7 +65,10 @@ public class StudentBLServiceImplTest {
         Assignment assignment = this.mockUtilService.getRandomAssignment();
         //6.学生完成这个作业并提交
         Commitment commitment = new Commitment();
-
+        commitment.setStudent(student);
+        commitment.setSubmitTime(LocalDateTime.now());
+        commitment.setAssignment(assignment);
+        commitment.getAnswerSet();
         //TODO 还需要添加
         return null;
 
