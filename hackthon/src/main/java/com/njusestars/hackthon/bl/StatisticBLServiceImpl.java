@@ -40,19 +40,33 @@ public class StatisticBLServiceImpl implements StatisticBLService {
             System.err.println("score map is incorrect ~! ");
             return null;
         }
-        //TODO
-        return null;
+
+        List<Double> scoreList = this.getScoreList(assignmentId);
+        if (scoreList == null || scoreList.size()==0) {
+            System.err.println("score list is not correct");
+            return null;
+        }
+
+        Integer rank = scoreList.indexOf(stuScoreMap.get(studentName)) + 1;//修正排名
+
+        return rank;
     }
 
     @Override
     public Double getAverageInAssignment(Long assignmentId) {
-        return null;
+        if (assignmentId == null || !assignmentDao.existsById(assignmentId)) {
+            System.err.println("assignment id not exists");
+            return null;
+        }
+        List<Double> scoreList = this.getScoreList(assignmentId);
+        Double sum = 0.0, aver = 0.0;
+        for (Double each : scoreList) {
+            sum += each;
+        }
+        aver = sum / scoreList.size();
+        return aver;
     }
-
-    @Override
-    public List<Integer> getScoreRatio(Long assignmentId, int cutNum) {
-        return null;
-    }
+    
 
     @Override
     public Map<String, Double> getTotalScore(Long assignmentId) {
