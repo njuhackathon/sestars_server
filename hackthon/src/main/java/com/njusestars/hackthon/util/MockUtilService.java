@@ -103,8 +103,12 @@ public class MockUtilService {
         commitment.setAssignment(assignment);
         commitment.setSubmitTime(LocalDateTime.now());
 
-        Answer answer = new Answer();
-        answer.setCommitment(commitment);
+        for (Question question : assignment.getQuestionList()) {
+            Answer answer = new Answer();
+            answer.setQuestion(question);
+            answer.setCommitment(commitment);
+            answer.setText(String.valueOf(Math.random()));
+        }
 
         commitment = studentBLService.commitAssignment(commitment);
         return commitment;
