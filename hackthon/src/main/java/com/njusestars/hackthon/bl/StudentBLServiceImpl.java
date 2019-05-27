@@ -50,10 +50,10 @@ public class StudentBLServiceImpl implements StudentBLService {
             commitmentDao.deleteById(oldCommit.getId());
         }
         Commitment newCommit = commitmentDao.save(commitment);
-        for (Answer answer : newCommit.getAnswerSet()) {
-            answerDao.save(answer);
-        }
-
+//        for (Answer answer : newCommit.getAnswerSet()) {
+//            answerDao.save(answer);
+//        }
+        newCommit = commitmentDao.findById(newCommit.getId()).orElse(null);
         return newCommit;
     }
 
