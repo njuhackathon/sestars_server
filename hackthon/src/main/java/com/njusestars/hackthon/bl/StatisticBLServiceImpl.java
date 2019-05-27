@@ -92,23 +92,53 @@ public class StatisticBLServiceImpl implements StatisticBLService {
                 }
             }
         }
+
+        scoreList.sort((a,b)->(a>b)?-1:1);//逆序
         return scoreList;
     }
 
     @Override
     public Double getHighestScoreByQuestion(Long questionId) {
-        Question question = null;
-        return null;
+        if (questionId == null) {
+            System.err.println("getHighestScoreByQuestion() : question id is null");
+            return null;
+        }
+        List<Double> scoreList = this.getScoreListByQuestion(questionId);
+        if (scoreList == null || scoreList.size()==0) {
+            System.err.println("getHighestScoreByQuestion() : scoreList is null");
+            return 0.0;
+        }
+        Double highest = scoreList.get(0);
+        return highest;
     }
 
     @Override
     public Double getLowestScoreByQuestion(Long questionId) {
-        return null;
+        if (questionId == null) {
+            System.err.println("getLowestScoreByQuestion() : question id is null");
+            return null;
+        }
+        List<Double> scoreList = this.getScoreListByQuestion(questionId);
+        if (scoreList == null || scoreList.size()==0) {
+            System.err.println("getLowestScoreByQuestion() : scoreList is null");
+            return 0.0;
+        }
+        Double lowest = scoreList.get(scoreList.size()-1);
+        return lowest;
     }
 
     @Override
     public Double getAverScoreByQuestion(Long questionId) {
-        return null;
+        if (questionId == null) {
+            return null;
+        }
+        List<Double> scoreList = this.getScoreListByQuestion(questionId);
+        double sum = 0;
+        for (Double eachScore : scoreList) {
+            sum += eachScore;
+        }
+        double aver = sum / scoreList.size();
+        return aver;
     }
 
     @Override
