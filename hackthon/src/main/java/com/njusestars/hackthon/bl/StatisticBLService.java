@@ -29,13 +29,7 @@ public interface StatisticBLService {
     Double getAverageInAssignment(Long assignmentId);
 
 
-    /**
-     * 将得分区间分为cutNum个，返回每个得分区间中的人数，从高到底
-     * @param assignmentId
-     * @param cutNum
-     * @return
-     */
-    List<Integer> getScoreRatio(Long assignmentId,int cutNum);
+
 
     /**
      * 得到所有的score分数，返回(studentID --> Score)的map
